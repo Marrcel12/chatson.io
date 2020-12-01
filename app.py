@@ -83,7 +83,7 @@ def sessions():
             print("Post")
             chat_mess = request.form.get('chat_mess')
             if chat_mess == "":
-                return render_template('chat.html', error="You can't send blank mess!")
+                return render_template('chat_new.html', error="You can't send blank mess!")
             else:
                 # send mess
                 send_mess(session["user"], chat_mess, session["key"], str(
@@ -92,7 +92,7 @@ def sessions():
                 session["mess_counter_current"] += 1
                 # prepare_mess(messeges)
 
-        return render_template('chat.html')
+        return render_template('chat_new.html')
         # else:
         #     return render_template('enter.html')
     except:
