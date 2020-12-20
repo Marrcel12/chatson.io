@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chatson.io</title>
+    <title>Chatson</title>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="shortcut icon" href="{{ url_for('static', filename='img/icon.png') }}">
@@ -24,15 +24,10 @@
     </nav>
     <header id="join">
         <h1>Enter room code</h1>
-        <p>Or choose one of avaliable codes :&#41;</p>
+        <p>Or choose one of randomly generated codes :&#41;</p>
         <form id="enterRoom" method="POST" id="main_form">
             <input type="text" name="key_id" list="codes" placehoder="Code..." />
             <datalist id="codes">
-                <option>coed1</option>
-                <option>code2</option>
-                <option>llama</option>
-                <option>darkpowerxD</option>
-                <option>120524</option>
             </datalist>
             <div id="users">
                 <div>
@@ -98,12 +93,6 @@
     <footer>&copy;2020-2020 | Made with &hearts; by <img src="{{ url_for('static', filename='img/malogoFooterWhite.png') }}" alt="M&A">
     </footer>
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/enter.js') }}"></script>
-    <script>
-      function onSubmit(token) {
-        document.getElementById("main_form").submit();
-      }
-    </script>
 </body>
 
 </html>

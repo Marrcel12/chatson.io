@@ -1,11 +1,15 @@
 function toggleBlur(){
-    if (document.getElementById('hidden').classList[0] == "blur"){
-        document.getElementById('hidden').classList.remove('blur')
+    hidELem=document.getElementsByClassName('hidden');
+    for (i=0; i<2; i++){
+        if (hidELem[i].classList[1] == "blur"){
+        hidELem[i].classList.remove('blur')
         document.getElementById('show').classList.add('toggled')
     } else{
-        document.getElementById('hidden').classList.add('blur')
+        hidELem[i].classList.add('blur')
         document.getElementById('show').classList.remove('toggled')
     }
+    }
+    
 }
 function bottomDiv(){
     var objDiv = document.getElementById("chatWindow");
@@ -35,10 +39,8 @@ function send_and_refresh() {
       $("#chatWindow").html("");
       $.each(data, function () {
         if (this.user == 1) {
-            $("#uid").text(1);
           class_to = 'class="user1"';
         } else {
-            $("#uid").text(2);
           class_to = 'class="user2"';
         }
         // console.log(decryption(this.mess, $("#roomKey").text(CryptoJS.enc.Utf8)) )

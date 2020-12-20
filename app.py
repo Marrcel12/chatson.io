@@ -92,11 +92,11 @@ def sessions():
                 session["mess_counter_current"] += 1
                 # prepare_mess(messeges)
 
-        return render_template('chat_new.html')
+        return render_template('chat_new.html', uid = session["user"], roomID = session["key"])
         # else:
         #     return render_template('enter.html')
     except:
-        return redirect("/enter", code=302)
+        return redirect("/index", code=302)
 
 
 @app.route('/chat_check', methods=['GET', 'POST'])

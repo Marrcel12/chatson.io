@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chatson.io</title>
+    <title>Chatson</title>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/chat_new.css') }}">
     <link rel="shortcut icon" href="{{ url_for('static', filename='img/icon.png') }}">
@@ -23,11 +23,11 @@
 
 <body>
     <nav>
-        <div id="user">User <div id="uid"></div></div>
+        <div id="user">User {{ uid }}</div>
         <div id="key">
-            <div id="hidden" class="blur">
-                   <input type="text" id="roomCode" value="mleko" disabled>
-                <input type="text" id="roomKey" placeholder="Enter Your Key">
+            <div>
+                   Room ID: <span class="hidden blur" style="margin-right: 20px">{{roomID}}</span>
+                Hasło: <input type="text" id="roomKey" class="hidden blur" placeholder="Enter Your Key">
                 <button id="send_key">Send</button>
             </div>
             <button id="show" onclick="toggleBlur()">Show</button>
