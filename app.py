@@ -3,8 +3,21 @@ from cryptography.fernet import Fernet
 import sqlite3
 import string
 import random
+import logging
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'vnkdjnfjknfl1232#'
+# logging
+# only errors devs option
+log = logging.getLogger('werkzeug')
+log.setLevel(logging.ERROR)
+# ------------
+
+# none logs
+# --------------
+# app.logger.disabled = True
+# log = logging.getLogger('werkzeug')
+# log.disabled = True
+# ------------
 message = 'John Doe'
 file = open("key.key", "rb")
 key = file.read()
