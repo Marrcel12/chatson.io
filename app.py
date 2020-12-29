@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request, session, redirect, url_for, jsonify
 from cryptography.fernet import Fernet
 import sqlite3
+import string
+import random
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'vnkdjnfjknfl1232#'
 message = 'John Doe'
@@ -17,7 +19,8 @@ def encrypt(message, key: bytes) -> bytes:
 def decrypt(token, key: bytes) -> bytes:
     return Fernet(key).decrypt(token).decode()
 
-
+def rooms_id_generator(size=6, chars=string.ascii_uppercase + string.digits):
+    return ''.join(random.choice(chars) for _ in range(size))
 def send_mess(user_number, chat, key, mess_counter_current):
     conn = sqlite3.connect('sqlite.db')
     c = conn.cursor()
@@ -111,3 +114,33 @@ def check_chat():
 def chat_new():
 
     return render_template('chat_new.html')
+
+@app.route('/gen_new_rooms_id', methods=['GET',])
+def gen_new_rooms_id():
+    def check_if_id_not_in_base(id):
+        conn = sqlite3.connect('sqlite.db')
+        c = conn.cursor()
+        c.execute(
+            "SELECT key FROM chat_table  where  key=?;", (id,))
+        rows = c.fetchall()
+        tab=[]
+        for row in rows:
+            tab.append(row)
+        conn.close
+        if tab:
+            return False
+        else:
+            return True
+    def pre_gen(number_to_gen):
+        ids=[]
+        for _ in range(0,number_to_gen):
+            propos=rooms_id_generator(6)
+            if check_if_id_not_in_base(propos):
+                ids.append(propos)
+        return ids
+    ids=[]
+    while len(ids)!=5:
+        to_gen=5 - len(ids)
+        ids=pre_gen(to_gen)      
+    return jsonify(ids)
+
