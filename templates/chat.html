@@ -9,15 +9,9 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/chat_new.css') }}">
     <link rel="shortcut icon" href="{{ url_for('static', filename='img/icon.png') }}">
     <script
-      src="https://code.jquery.com/jquery-3.5.1.js"
-      integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
-      crossorigin="anonymous"
+      src="{{ url_for('static', filename='vendors/jquery351.js') }}"
     ></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"
-      integrity="sha512-nOQuvD9nKirvxDdvQ9OMqe2dgapbPB7vYAMrzJihw5m+aNcf0dX53m6YxM4LgA9u8e9eg9QX+/+mPu8kCNpV2A=="
-      crossorigin="anonymous"
-    ></script>
+    <script src="{{ url_for('static', filename='vendors/crypto.js') }}"> </script>
     <script src="{{ url_for('static', filename='js/cookies.js') }}"></script>
 </head>
 
