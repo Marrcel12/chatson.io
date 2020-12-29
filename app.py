@@ -6,7 +6,8 @@ import random
 import logging
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'vnkdjnfjknfl1232#'
-# logging
+# logging section
+
 # only errors devs option
 log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
@@ -18,6 +19,7 @@ log.setLevel(logging.ERROR)
 # log = logging.getLogger('werkzeug')
 # log.disabled = True
 # ------------
+
 message = 'John Doe'
 file = open("key.key", "rb")
 key = file.read()
@@ -34,7 +36,7 @@ def decrypt(token, key: bytes) -> bytes:
 def rooms_id_generator(size=6, chars=string.ascii_uppercase + string.digits):
     return ''.join(random.choice(chars) for _ in range(size))
 def send_mess(user_number, chat, key, mess_counter_current):
-    conn = sqlite3.connect('sqlite.db')
+    conn = sqlite3.connect('base.db')
     c = conn.cursor()
     mess_counter_current = str(int(mess_counter_current)+1)
     to_execute = (user_number, chat, key, mess_counter_current)
@@ -45,7 +47,7 @@ def send_mess(user_number, chat, key, mess_counter_current):
     return mess_counter_current
 
 def get_mess(user_number, key, mess_counter_current):
-    conn = sqlite3.connect('sqlite.db')
+    conn = sqlite3.connect('base.db')
     c = conn.cursor()
     key = (key,)
     c.execute(
@@ -114,7 +116,7 @@ def chat_new():
 @app.route('/gen_new_rooms_id', methods=['GET',])
 def gen_new_rooms_id():
     def check_if_id_not_in_base(id):
-        conn = sqlite3.connect('sqlite.db')
+        conn = sqlite3.connect('base.db')
         c = conn.cursor()
         c.execute(
             "SELECT key FROM chat_table  where  key=?;", (id,))
