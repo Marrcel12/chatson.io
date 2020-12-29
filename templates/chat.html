@@ -1,10 +1,13 @@
-<html>
-  <head>
-    <title>Session</title>
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='css/chat.css') }}"
-    />
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatson</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/chat_new.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/icon.png') }}">
     <script
       src="https://code.jquery.com/jquery-3.5.1.js"
       integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
@@ -16,30 +19,33 @@
       crossorigin="anonymous"
     ></script>
     <script src="{{ url_for('static', filename='js/cookies.js') }}"></script>
-  </head>
+</head>
 
-  <body>
-    <div id="main_box">
-      <div id="chat_box"></div>
-      <form method="POST">
-        <input
-          type="text"
-          name="encryption"
-          id="encrytp"
-          placeholder="Klucz kodowania"
-        />
-        <input
-          type="text"
-          name="chat_mess"
-          placeholder="Napisz wiadomość"
-          required
-        />
-        <button>Send</button>
-        <div>{{error}}</div>
-      </form>
-      <button id="send_key">Send the en/decryption key</button>
-      <div id="key"></div>
+<body>
+    <nav>
+        <div id="user">User {{ uid }}</div>
+        <div id="key">
+            <div>
+                   Room ID: <span class="hidden blur" style="margin-right: 20px">{{roomID}}</span>
+                Hasło: <input type="text" id="roomKey" class="hidden blur" placeholder="Enter Your Key">
+                <button id="send_key">Send</button>
+            </div>
+            <button id="show" onclick="toggleBlur()">Show</button>
+        </div>
+    </nav>
+    <div id="chatSection">
+        <div id="chat">
+            <div id="chatWindow">
+            </div>
+            <form method="post">
+                <input type="text" id="mess_to_send" name="chat_mess" placeholder="Your Message"> 
+            <button>Send</button>
+            </form>
+            
+        </div>
+        <div id="ad"></div>
     </div>
-    <script src="{{ url_for('static', filename='js/chat.js') }}"></script>
-  </body>
+    <script src="{{ url_for('static', filename='js/chat_new.js') }}"></script>
+</body>
+
 </html>
