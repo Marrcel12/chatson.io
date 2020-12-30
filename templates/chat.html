@@ -21,7 +21,7 @@
         <div id="key">
             <div>
                    Room ID: <span class="hidden blur" style="margin-right: 20px">{{roomID}}</span>
-                Hasło: <input type="text" id="roomKey" class="hidden blur" placeholder="Enter Your Key">
+                Key: <input type="text" id="roomKey" class="hidden blur" placeholder="Enter Your Key">
                 <button id="send_key">Send</button>
             </div>
             <button id="show" onclick="toggleBlur()">Show</button>
@@ -37,9 +37,9 @@
             </form>
             
         </div>
-        <div id="ad"></div>
+        <div id="ad" class="text-center display-1">Space for yours ads!</div>
     </div>
-    <script src="{{ url_for('static', filename='js/chat_new.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/chat.js') }}"></script>
 </body>
 
 </html>

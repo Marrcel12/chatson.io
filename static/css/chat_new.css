@@ -100,16 +100,55 @@ nav> #user{
 }
 
 #chatWindow span{
-    border-radius: 20px;
-    padding: 4px;
+    padding: 4px; 
+    width: 300px;
+    margin: 50px auto;
+    background: #00bfb6;
+    padding: 20px;
+    text-align: center;
+    font-weight: 900;
+    color: #fff;
+    font-family: arial;
+    position:relative;
 }
+#chatWindow .user1 span:before {
+    content: "";
+    width: 0px;
+    height: 0px;
+    position: absolute;
+    border-left: 10px solid transparent;
+    border-right: 10px solid #3993ff;
+    border-top: 10px solid #3993ff;
+    border-bottom: 10px solid transparent;
+    left: -19px;
+    top: 0;
+
+   
+  }
+#chatWindow p{
+    margin-bottom: 5vh;
+  }
 #chatWindow .user1 span{
+    margin-left: 1vw;
     color: white;
     background-color: #3993ff;
 }
 #chatWindow .user2 span{
+    margin-right: 1vw;
     color: white;
     background-color: gray;
+}
+#chatWindow .user2 span:before{
+    content: "";
+    width: 0px;
+    height: 0px;
+    position: absolute;
+    border-left: 10px solid gray;
+    border-right: 10px solid transparent;
+    border-top: 10px solid gray;
+    border-bottom: 10px solid transparent;
+    right: -19px;
+    top: 0px;
 }
 #chatWindow .user2{
     text-align: right;
