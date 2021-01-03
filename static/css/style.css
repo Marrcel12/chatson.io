@@ -214,6 +214,8 @@ footer img {
     position: relative;
     margin: 15px auto;
     font-size: 20px;
+    padding: 10px;
+    text-align: center;
 }
 
 #about form input,
