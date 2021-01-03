@@ -48,7 +48,9 @@
             <img src="{{ url_for('static', filename='img/arrow.svg') }}" alt="">
         </div>
     </header>
-    <div id="ad">Ad</div>
+    <input type="hidden" value="0" id="adCounter">
+    <div class="ad">Ad</div>
+    <div class="ad" style="display: none">lol!</div>
     <section id="howDoesItWork">
         <h2>How does it Work?</h2>
         <div id="explain">
@@ -111,6 +113,7 @@
     <footer>&copy;2020-2020 | Made with &hearts; by <img src="{{ url_for('static', filename='img/malogoFooterWhite.png') }}" alt="M&A"> <i><a href="sss" style="text-decoration: none; font-size: smaller; color:white;">Privacy and information</a> </i>  
     </footer>
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/adSlider.js') }}"></script>
 </body>
 
 </html>

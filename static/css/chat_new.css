@@ -60,7 +60,7 @@ nav> #user{
 #hidden input{
     width: 120px;
 }
-#ad{
+.ad{
     margin: 0 auto;
     background: gray;
     width: 80vw;
