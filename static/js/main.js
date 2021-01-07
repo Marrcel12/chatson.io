@@ -1,6 +1,9 @@
-for(i=0;i<5;i++){
-    document.getElementById('codes').innerHTML+= "<option>"+Math.random().toString(36).replace(/[^a-z]+/g, '')+"</option>"
+$.get( "/gen_new_rooms_id", function( data ) {
+  for(i=0;i<5;i++){
+    document.getElementById('codes').innerHTML+= "<option>"+data[i]+"</option>"
 }
+});
+
 function scrollToHowDoesItWork() {
     window.scrollTo(0, document.getElementById('howDoesItWork').offsetTop);
 };
