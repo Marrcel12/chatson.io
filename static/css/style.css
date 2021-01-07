@@ -79,6 +79,7 @@ header h1 {
     border: 2px solid white;
     cursor: pointer;
     transition: .1s linear;
+    z-index: 10;
 }
 
 #enterRoom button:hover {
@@ -118,6 +119,7 @@ header h1 {
 #scrollDown p {
     font-size: 18px;
     font-weight: 100;
+    z-index: -1;
 }
 
 #scrollDown img {
