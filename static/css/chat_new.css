@@ -6,15 +6,8 @@
     outline: none;
 }
 
-body {
-    margin: 0;
-}
-button{
-    cursor: pointer;
-
-}
-
-nav {
+@media only screen and (max-width: 767px) {
+    nav {
     position: fixed;
     top: 0;
     background-color: #3993ff;
@@ -23,22 +16,26 @@ nav {
     height: 60px;
     z-index: 10;
     padding: 10px;
-    display: grid;
-    grid-template-columns: 101px auto;
+    overflow: hidden;
+        text-align: center;
 }
 nav> #user{
     font-size: 30px;
+    position: relative;
+    top: 60px;
 }
+    .mobileBreaker{
+        height: 20px;
+        display: block!important;
+    }
 #key{
-    text-align: right;
+    position: relative;
+    top: 90px;
 }
 .blur{
     filter: blur(5px);
     pointer-events: none;
 }
-#chatWindow::-webkit-scrollbar{
-        width: 0
-    }
 #key >div, #key> button{
     display: inline-block;
 }
@@ -57,22 +54,46 @@ nav> #user{
     color: #3993ff !important;
     background-color: white !important;
 }
-#hidden input{
+    #expandCollapse{
+        font-size: 30px;
+        text-align: center;
+    }
+}
+
+
+body {
+    margin: 0;
+}
+
+button {
+    cursor: pointer;
+
+}
+
+
+#chatWindow::-webkit-scrollbar {
+    width: 0
+}
+
+#hidden input {
     width: 120px;
 }
-.ad{
+
+.ad {
     margin: 0 auto;
     background: gray;
     width: 80vw;
     max-width: 1000px;
     height: 200px;
 }
-#chat{
+
+#chat {
     margin: 100px auto 50px auto;
     width: 80vw;
     height: calc(100vh - 300px);
 }
-#chat input{
+
+#chat input {
     height: 40px;
     width: calc(100% - 85px);
     border: 2px solid #3993ff;
@@ -81,7 +102,8 @@ nav> #user{
     border-radius: 20px;
     padding: 0 10px;
 }
-#chat button{
+
+#chat button {
     height: 40px;
     width: 80px;
     border: 2px solid #3993ff;
@@ -89,7 +111,8 @@ nav> #user{
     background-color: white;
     border-radius: 20px;
 }
-#chatWindow{
+
+#chatWindow {
     width: 100%;
     height: calc(100% - 20px);
     margin-bottom: 20px;
@@ -99,8 +122,8 @@ nav> #user{
     overflow-y: scroll;
 }
 
-#chatWindow span{
-    padding: 4px; 
+#chatWindow span {
+    padding: 4px;
     width: 300px;
     margin: 50px auto;
     background: #00bfb6;
@@ -109,8 +132,9 @@ nav> #user{
     font-weight: 900;
     color: #fff;
     font-family: arial;
-    position:relative;
+    position: relative;
 }
+
 #chatWindow .user1 span:before {
     content: "";
     width: 0px;
@@ -123,22 +147,26 @@ nav> #user{
     left: -19px;
     top: 0;
 
-   
-  }
-#chatWindow p{
+
+}
+
+#chatWindow p {
     margin-bottom: 5vh;
-  }
-#chatWindow .user1 span{
+}
+
+#chatWindow .user1 span {
     margin-left: 1vw;
     color: white;
     background-color: #3993ff;
 }
-#chatWindow .user2 span{
+
+#chatWindow .user2 span {
     margin-right: 1vw;
     color: white;
     background-color: gray;
 }
-#chatWindow .user2 span:before{
+
+#chatWindow .user2 span:before {
     content: "";
     width: 0px;
     height: 0px;
@@ -150,21 +178,75 @@ nav> #user{
     right: -19px;
     top: 0px;
 }
-#chatWindow .user2{
+
+#chatWindow .user2 {
     text-align: right;
 }
-#uid{
+
+#uid {
     display: inline;
 }
 
 /*medium screens*/
 @media only screen and (min-width: 768px) {
-    #hidden input{
-    width: 200px;
-}
-    nav{
+    #hidden input {
+        width: 200px;
+    }
+
+    nav {
         padding-right: 20px;
     }
-  
+
+    nav {
+        position: fixed;
+        top: 0;
+        background-color: #3993ff;
+        color: white;
+        width: 100vw;
+        z-index: 10;
+        padding: 10px;
+        display: grid;
+        grid-template-columns: 101px auto;
+    }
+
+    nav > #user {
+        font-size: 30px;
+    }
+
+    #key {
+        text-align: right;
+    }
+
+    .blur {
+        filter: blur(5px);
+        pointer-events: none;
+    }
+
+    #key > div,
+    #key > button {
+        display: inline-block;
+    }
+
+    #key button,
+    #key input {
+        height: 41px;
+        background-color: #3993ff;
+        color: white;
+        border: 2px solid white;
+        border-radius: 7px;
+        margin: 0 5px;
+    }
+
+    #show {
+        transition: .2s linear;
+    }
+
+    .toggled {
+        color: #3993ff !important;
+        background-color: white !important;
+    }
+    .mobileBreaker, #expandCollapse{
+    display: none;
 }
 
+}

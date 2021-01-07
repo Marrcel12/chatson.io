@@ -11,6 +11,15 @@ function toggleBlur(){
     }
     
 }
+function expandCollapse(){
+    if(document.getElementsByTagName('nav')[0].offsetHeight == 60){
+        document.getElementsByTagName('nav')[0].style.height = "340px";
+        console.log('kappa')
+    }else{
+        document.getElementsByTagName('nav')[0].style.height = "60px";
+    }
+    
+}
 function bottomDiv(){
     var objDiv = document.getElementById("chatWindow");
     objDiv.scrollTop = objDiv.scrollHeight; 
