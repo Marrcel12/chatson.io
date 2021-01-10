@@ -17,14 +17,14 @@
 
 <body>
     <nav>
-       <div id="expandCollapse" style="cursor: pointer;" onclick="expandCollapse()">Click to Expand/Collapse</div>
+       <div id="expandCollapse" style="cursor: pointer;" onclick="expandCollapse()">Touch to <div id="expandOrCollapse">expand</div> info</div>
         <div id="user">User {{ uid }}</div>
         <div id="key">
             <div>
                    Room ID: <span class="hidden blur" style="margin-right: 20px">{{roomID}}</span>
                 <div class="mobileBreaker"></div>
                 Key: <input type="text" id="roomKey" class="hidden blur" placeholder="Enter Your Key">
-                <button id="send_key">Send</button>
+                <button id="send_key">Save</button>
             </div>
             <div class="mobileBreaker"></div>
             <button id="show" onclick="toggleBlur()">Show</button>

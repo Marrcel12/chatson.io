@@ -14,9 +14,11 @@ function toggleBlur(){
 function expandCollapse(){
     if(document.getElementsByTagName('nav')[0].offsetHeight == 60){
         document.getElementsByTagName('nav')[0].style.height = "340px";
+        document.getElementById('expandOrCollapse').innerHTML = 'collapse'
         console.log('kappa')
     }else{
         document.getElementsByTagName('nav')[0].style.height = "60px";
+        document.getElementById('expandOrCollapse').innerHTML = 'expand'
     }
     
 }

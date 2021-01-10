@@ -7,6 +7,14 @@
 }
 
 @media only screen and (max-width: 767px) {
+    #expandOrCollapse{
+        display: inline;
+    }
+    #chat {
+    margin: 100px auto 50px auto;
+    width: 80vw;
+    height: 550px;
+}
     nav {
     position: fixed;
     top: 0;
@@ -87,11 +95,6 @@ button {
     height: 200px;
 }
 
-#chat {
-    margin: 100px auto 50px auto;
-    width: 80vw;
-    height: calc(100vh - 300px);
-}
 
 #chat input {
     height: 40px;
@@ -189,6 +192,11 @@ button {
 
 /*medium screens*/
 @media only screen and (min-width: 768px) {
+    #chat {
+    margin: 100px auto 50px auto;
+    width: 80vw;
+    height: calc(100vh - 300px);
+}
     #hidden input {
         width: 200px;
     }
