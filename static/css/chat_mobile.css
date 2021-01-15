@@ -6,6 +6,81 @@
     outline: none;
 }
 
+@media only screen and (max-width: 767px) {
+    #expandOrCollapse {
+        display: inline;
+    }
+
+    #chat {
+        margin: 100px auto 50px auto;
+        width: 80vw;
+        height: 550px;
+    }
+
+    nav {
+        position: fixed;
+        top: 0;
+        background-color: #3993ff;
+        color: white;
+        width: 100vw;
+        height: 60px;
+        z-index: 10;
+        padding: 10px;
+        overflow: hidden;
+        text-align: center;
+    }
+
+    nav > #user {
+        font-size: 30px;
+        position: relative;
+        top: 60px;
+    }
+
+    .mobileBreaker {
+        height: 20px;
+        display: block !important;
+    }
+
+    #key {
+        position: relative;
+        top: 90px;
+    }
+
+    .blur {
+        filter: blur(5px);
+        pointer-events: none;
+    }
+
+    #key > div,
+    #key > button {
+        display: inline-block;
+    }
+
+    #key button,
+    #key input {
+        height: 41px;
+        background-color: #3993ff;
+        color: white;
+        border: 2px solid white;
+        border-radius: 7px;
+        margin: 0 5px;
+    }
+
+    #show {
+        transition: .2s linear;
+    }
+
+    .toggled {
+        color: #3993ff !important;
+        background-color: white !important;
+    }
+
+    #expandCollapse {
+        font-size: 30px;
+        text-align: center;
+    }
+}
+
 body {
     margin: 0;
 }
@@ -120,75 +195,4 @@ button {
 
 #uid {
     display: inline;
-}
-
-/*medium screens*/
-@media only screen and (min-width: 768px) {
-    #chat {
-        margin: 100px auto 50px auto;
-        width: 80vw;
-        height: calc(100vh - 300px);
-    }
-
-    #hidden input {
-        width: 200px;
-    }
-
-    nav {
-        padding-right: 20px;
-    }
-
-    nav {
-        position: fixed;
-        top: 0;
-        background-color: #3993ff;
-        color: white;
-        width: 100vw;
-        z-index: 10;
-        padding: 10px;
-        display: grid;
-        grid-template-columns: 101px auto;
-    }
-
-    nav > #user {
-        font-size: 30px;
-    }
-
-    #key {
-        text-align: right;
-    }
-
-    .blur {
-        filter: blur(5px);
-        pointer-events: none;
-    }
-
-    #key > div,
-    #key > button {
-        display: inline-block;
-    }
-
-    #key button,
-    #key input {
-        height: 41px;
-        background-color: #3993ff;
-        color: white;
-        border: 2px solid white;
-        border-radius: 7px;
-        margin: 0 5px;
-    }
-
-    #show {
-        transition: .2s linear;
-    }
-
-    .toggled {
-        color: #3993ff !important;
-        background-color: white !important;
-    }
-
-    .mobileBreaker,
-    #expandCollapse {
-        display: none;
-    }
 }

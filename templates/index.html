@@ -24,11 +24,11 @@
     </nav>
     <header id="join">
         <h1>Enter room code</h1>
-        <p>Or choose one of randomly generated codes :&#41;</p>
-        <form id="enterRoom" method="POST" id="main_form">
-            <input type="text" name="key_id" list="codes" placehoder="Code..." />
-            <datalist id="codes">
-            </datalist>
+        <p>Or generate random one :&#41;</p>
+        <form id="enterRoom" method="POST" id="main_form" autocomplete="off">
+           <input type="hidden" name="wid" id="wid" value="">
+            <input type="text" name="key_id" id="roomCode" placehoder="Code..." />
+            <button type="button" onclick="gencode()">Generate</button>
             <div id="users">
                 <div>
                     <p>User 1</p>
