@@ -8,20 +8,19 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/chat_mobile.css') }}">
     <link rel="shortcut icon" href="{{ url_for('static', filename='img/icon.png') }}">
-    <script
-      src="{{ url_for('static', filename='vendors/jquery351.js') }}"
-    ></script>
+    <script src="{{ url_for('static', filename='vendors/jquery351.js') }}"></script>
     <script src="{{ url_for('static', filename='vendors/crypto.js') }}"> </script>
     <script src="{{ url_for('static', filename='js/cookies.js') }}"></script>
 </head>
 
 <body>
     <nav>
-       <div id="expandCollapse" style="cursor: pointer;" onclick="expandCollapse()">Touch to <div id="expandOrCollapse">expand</div> info</div>
+       <div id="chatsonLogo" onclick="clickOnLogo()"></div>
+        <div id="expandCollapse" style="cursor: pointer;" onclick="expandCollapse()"><img src="{{ url_for('static', filename='img/hamburger.png') }}" alt=""></div>
         <div id="user">User {{ uid }}</div>
         <div id="key">
             <div>
-                   Room ID: <span class="hidden blur" style="margin-right: 20px">{{roomID}}</span>
+                Room ID: <span class="hidden blur" style="margin-right: 20px">{{roomID}}</span>
                 <div class="mobileBreaker"></div>
                 Key: <input type="text" id="roomKey" class="hidden blur" placeholder="Enter Your Key">
                 <button id="send_key">Save</button>
@@ -29,20 +28,19 @@
             <div class="mobileBreaker"></div>
             <button id="show" onclick="toggleBlur()">Show</button>
         </div>
+        <div class="ad" class="text-center display-1">Space for yours ads!</div>
+        <div class="ad" class="text-center display-1" style="display: none">lol!</div>
     </nav>
     <div id="chatSection">
         <div id="chat">
             <div id="chatWindow">
             </div>
             <form method="post" autocomplete="off">
-                <input type="text" id="mess_to_send" name="chat_mess" placeholder="Your Message"> 
-            <button>Send</button>
+                <input type="text" id="mess_to_send" name="chat_mess" placeholder="Your Message">
+                <button>Send</button>
             </form>
-            
         </div>
         <input type="hidden" value="0" id="adCounter">
-        <div class="ad" class="text-center display-1">Space for yours ads!</div>
-        <div class="ad" class="text-center display-1" style="display: none">lol!</div>
     </div>
     <script src="{{ url_for('static', filename='js/chat.js') }}"></script>
     <script src="{{ url_for('static', filename='js/adSlider.js') }}"></script>

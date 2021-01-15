@@ -5,81 +5,99 @@
     font-family: "Open Sans";
     outline: none;
 }
-
-@media only screen and (max-width: 767px) {
-    #expandOrCollapse {
-        display: inline;
-    }
-
-    #chat {
-        margin: 100px auto 50px auto;
-        width: 80vw;
-        height: 550px;
-    }
-
-    nav {
-        position: fixed;
-        top: 0;
-        background-color: #3993ff;
-        color: white;
-        width: 100vw;
-        height: 60px;
-        z-index: 10;
-        padding: 10px;
-        overflow: hidden;
-        text-align: center;
-    }
-
-    nav > #user {
-        font-size: 30px;
-        position: relative;
-        top: 60px;
-    }
-
-    .mobileBreaker {
-        height: 20px;
-        display: block !important;
-    }
-
-    #key {
-        position: relative;
-        top: 90px;
-    }
-
-    .blur {
-        filter: blur(5px);
-        pointer-events: none;
-    }
-
-    #key > div,
-    #key > button {
-        display: inline-block;
-    }
-
-    #key button,
-    #key input {
-        height: 41px;
-        background-color: #3993ff;
-        color: white;
-        border: 2px solid white;
-        border-radius: 7px;
-        margin: 0 5px;
-    }
-
-    #show {
-        transition: .2s linear;
-    }
-
-    .toggled {
-        color: #3993ff !important;
-        background-color: white !important;
-    }
-
-    #expandCollapse {
-        font-size: 30px;
-        text-align: center;
-    }
+#chatsonLogo{
+    text-align: left;
+    display: inline-block;
+    position: absolute;
+    left: 5px;
+    cursor: pointer;
+    background-image: url(../img/chatson_logo_white.png);
+    height: 50px;
+    width: 200px;
+    background-size: contain;
+    background-repeat: no-repeat;
 }
+
+#expandCollapse {
+    font-size: 30px;
+    text-align: right;
+    transition: .1s linear;
+}
+#expandCollapse:hover{
+    filter: brightness(.9);
+}
+#expandCollapse img{
+    width: 40px;
+    border: 2px solid white;
+    border-radius: 20px;
+    padding: 3px;
+}
+
+#chat {
+    margin: 80px auto 0 auto;
+    width: 100vw;
+    height: calc(100vh - 110px);
+}
+
+nav {
+    position: fixed;
+    top: 0;
+    background-color: #3993ff;
+    color: white;
+    width: 100vw;
+    height: 100vh;
+    z-index: 10;
+    padding: 10px;
+    overflow: hidden;
+    text-align: center;
+}
+
+nav > #user {
+    font-size: 30px;
+    position: relative;
+    top: 60px;
+}
+
+.mobileBreaker {
+    height: 20px;
+    display: block !important;
+}
+
+#key {
+    position: relative;
+    top: 90px;
+}
+
+.blur {
+    filter: blur(5px);
+    pointer-events: none;
+}
+
+#key > div,
+#key > button {
+    display: inline-block;
+}
+
+#key button,
+#key input {
+    height: 41px;
+    background-color: #3993ff;
+    color: white;
+    border: 2px solid white;
+    border-radius: 7px;
+    margin: 0 5px;
+}
+
+#show {
+    transition: .2s linear;
+}
+
+.toggled {
+    color: #3993ff !important;
+    background-color: white !important;
+}
+
+
 
 body {
     margin: 0;
@@ -103,32 +121,31 @@ button {
     width: 80vw;
     max-width: 1000px;
     height: 200px;
+    margin-top: 150px;
 }
 
 #chat input {
-    height: 40px;
-    width: calc(100% - 85px);
+    height: 50px;
+    width: calc(100% - 115px);
     border: 2px solid #3993ff;
     color: #3993ff;
     background-color: white;
-    border-radius: 20px;
+    border-radius: 10px;
     padding: 0 10px;
 }
 
 #chat button {
-    height: 40px;
-    width: 80px;
+    height: 50px;
+    width: 110px;
     border: 2px solid #3993ff;
     color: #3993ff;
     background-color: white;
-    border-radius: 20px;
+    border-radius: 10px;
 }
 
 #chatWindow {
     width: 100%;
     height: calc(100% - 20px);
-    margin-bottom: 20px;
-    border: 2px solid #3993ff;
     border-radius: 20px;
     padding: 10px;
     overflow-y: scroll;
@@ -141,7 +158,7 @@ button {
     background: #00bfb6;
     padding: 20px;
     text-align: center;
-    font-weight: 900;
+    font-weight: bold;
     color: #fff;
     font-family: arial;
     position: relative;
@@ -161,7 +178,7 @@ button {
 }
 
 #chatWindow p {
-    margin-bottom: 5vh;
+    margin-bottom: 40px;
 }
 
 #chatWindow .user1 span {

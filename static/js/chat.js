@@ -1,3 +1,6 @@
+function clickOnLogo(){
+    window.location.replace("http://chatson.me");
+}
 function toggleBlur() {
     hidELem = document.getElementsByClassName('hidden');
     for (i = 0; i < 2; i++) {
