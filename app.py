@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, session, redirect, url_for, jsonify
+from flask import Flask, render_template, request, session, redirect, url_for, jsonify,make_response
 from cryptography.fernet import Fernet
 import sqlite3
 import string
@@ -85,15 +85,25 @@ def sessions():
         if request.method == "POST":
             chat_mess = request.form.get('chat_mess')
             if chat_mess == "":
-                return render_template('chat.html', error="You can't send blank mess!")
+                response =  make_response(render_template('chat.html', error="You can't send blank mess!"))
+                response.headers['Content-Security-Policy'] = "script-src 'self' http://51.195.101.71/"  
+                response.headers['X-Content-Type-Options'] = 'nosniff'
+                response.headers['X-Frame-Options'] = 'SAMEORIGIN'
+                response.headers['X-XSS-Protection'] = '1; mode=block'
+                return response
             else:
                 # send mess
                 send_mess(session["user"], chat_mess, session["key"], str(
                     session["mess_counter_current"]))
                 session["mess_counter_current"] += 1
-        return render_template('chat.html', uid = session["user"], roomID = session["key"])
+        response =  make_response(render_template('chat.html', uid = session["user"], roomID = session["key"]))
+        response.headers['Content-Security-Policy'] = "script-src 'self' http://51.195.101.71/"  
+        response.headers['X-Content-Type-Options'] = 'nosniff'
+        response.headers['X-Frame-Options'] = 'SAMEORIGIN'
+        response.headers['X-XSS-Protection'] = '1; mode=block'
+        return response
     except:
-        return redirect("/index", code=302)
+        return redirect("/", code=302)
     
 @app.route('/chat-mobile', methods=["GET", 'POST'])
 def chatMobile():
