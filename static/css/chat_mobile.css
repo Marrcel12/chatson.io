@@ -5,7 +5,8 @@
     font-family: "Open Sans";
     outline: none;
 }
-#chatsonLogo{
+
+#chatsonLogo {
     text-align: left;
     display: inline-block;
     position: absolute;
@@ -23,10 +24,12 @@
     text-align: right;
     transition: .1s linear;
 }
-#expandCollapse:hover{
+
+#expandCollapse:hover {
     filter: brightness(.9);
 }
-#expandCollapse img{
+
+#expandCollapse img {
     width: 40px;
     border: 2px solid white;
     border-radius: 20px;
@@ -96,8 +99,6 @@ nav > #user {
     color: #3993ff !important;
     background-color: white !important;
 }
-
-
 
 body {
     margin: 0;
