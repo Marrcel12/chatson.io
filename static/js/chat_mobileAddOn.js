@@ -1,3 +1,8 @@
+if(document.getElementById('roomKey').value != ""){
+    document.getElementsByTagName('nav')[0].style.height = "60px";
+}
+
+
 function expandCollapse() {
     if (document.getElementsByTagName('nav')[0].offsetHeight == 60) {
         document.getElementsByTagName('nav')[0].style.height = "100vh";
