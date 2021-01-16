@@ -1,6 +1,7 @@
-function clickOnLogo(){
+function clickOnLogo() {
     window.location.replace("http://chatson.me");
 }
+
 function toggleBlur() {
     hidELem = document.getElementsByClassName('hidden');
     for (i = 0; i < 2; i++) {
@@ -11,6 +12,12 @@ function toggleBlur() {
             hidELem[i].classList.add('blur')
             document.getElementById('show').classList.remove('toggled')
         }
+    }
+}
+
+function checkIfEncryptionKey() {
+    if (document.getElementById('roomKey').value == "") {
+        alert('Please enter room key before sending message')
     }
 }
 

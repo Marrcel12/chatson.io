@@ -15,7 +15,7 @@
 
 <body>
     <nav>
-       <div id="chatsonLogo" onclick="clickOnLogo()"></div>
+        <div id="chatsonLogo" onclick="clickOnLogo()"></div>
         <div id="expandCollapse" style="cursor: pointer;" onclick="expandCollapse()"><img src="{{ url_for('static', filename='img/hamburger.png') }}" alt=""></div>
         <div id="user">User {{ uid }}</div>
         <div id="key">
@@ -40,7 +40,7 @@
             </div>
             <form method="post" autocomplete="off">
                 <input type="text" id="mess_to_send" name="chat_mess" placeholder="Your Message">
-                <button>Send</button>
+                <button onmouseover="checkIfEncryptionKey()">Send</button>
             </form>
         </div>
         <input type="hidden" value="0" id="adCounter">
