@@ -36,14 +36,14 @@ nav {
     color: white;
     width: 100vw;
     height: 60px;
-    z-index: 10;
+    z-index: 11;
 }
 
 nav #logo {
     position: relative;
     top: 10px;
     margin: 0 auto;
-    width: 221px;
+    width: 173px;
     cursor: pointer;
     display: block;
 }
@@ -63,6 +63,7 @@ header {
     padding-top: 15vh;
     color: white;
 }
+
 
 header h1 {
     margin-bottom: 0;
@@ -89,7 +90,8 @@ header h1 {
 }
 
 #users {
-    width: 400px;
+    max-width: 400px;
+    width: 100vw;
     grid-template-columns: 50% 50%;
     display: grid;
     margin: 0 auto;
@@ -106,7 +108,8 @@ header h1 {
 #enterRoom button {
     display: block;
     margin: 0 auto;
-    width: 400px;
+    width: 100vw;
+    max-width: 400px;
     height: 40px;
     border-radius: 20px;
     font-size: 20px;
@@ -215,7 +218,8 @@ footer img {
     border: 2px solid #3993FF;
     resize: none;
     display: block;
-    width: 400px;
+    max-width: 400px;
+    width: 100vw;
     position: relative;
     margin: 15px auto;
     font-size: 20px;
@@ -226,7 +230,8 @@ footer img {
 #about form input,
 #about form button {
     height: 40px;
-    width: 400px;
+    max-width: 400px;
+    width: 100vw;
     border-radius: 20px;
 }
 
@@ -319,4 +324,11 @@ footer img {
     #about form {
         border-radius: 20px;
     }
+}
+
+@media only screen and (min-height: 1300px) {
+   header>*{
+    transform: scale(.75)
+} 
+    
 }
