@@ -35,8 +35,8 @@
             <div id="chatWindow">
             </div>
             <form method="post" autocomplete="off">
-                <input type="text" id="mess_to_send" name="chat_mess" placeholder="Your Message"> 
-            <button onmouseover="checkIfEncryptionKey()">Send</button>
+                <input type="text" id="mess_to_send" name="chat_mess" id="chatMess" placeholder="Your Message"> 
+            <button onmouseover="checkIfEncryptionKey()" onmousedown="sanitizeForm()">Send</button>
             </form>
             
         </div>

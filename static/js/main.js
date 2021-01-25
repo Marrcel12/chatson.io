@@ -1,3 +1,8 @@
+var sanitizeHTML = function (str) {
+	var temp = document.createElement('div');
+	temp.textContent = str;
+	return temp.innerHTML;
+};
 document.getElementById('wid').value = window.innerWidth;
 
 function gencode() {
@@ -15,6 +20,7 @@ $("#button_send_data").click(function () {
     setCookie("user", $("input[name='user']:checked").val(), 2);
 });
 
-function onSubmit(token) {
-    document.getElementById("main_form").submit();
+function sanitizeForm() {
+    document.getElementById('roomCode').value = sanitizeHTML(document.getElementById('roomCode').value);
 }
+

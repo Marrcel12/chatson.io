@@ -1,3 +1,8 @@
+var sanitizeHTML = function (str) {
+	var temp = document.createElement('div');
+	temp.textContent = str;
+	return temp.innerHTML;
+};
 function clickOnLogo() {
     window.location.replace("http://chatson.me");
 }
@@ -49,7 +54,7 @@ function decryption(mess_ecrypted, key) {
 $("#roomKey").val(getCookie("key_encryption"));
 // new key for encryption
 $("#send_key").click(function () {
-    console.log("aaa");
+    document.getElementById('roomKey').value = sanitizeHTML(document.getElementById('roomKey').value);
     setCookie("key_encryption", $("#roomKey").val(), 2);
     $("#roomKey").val(getCookie("key_encryption"));
 });
@@ -108,3 +113,7 @@ $(document).ready(function () {
     });
     send_and_refresh();
 });
+
+function sanitizeForm() {
+    document.getElementById('chatMess').value = sanitizeHTML(document.getElementById('chatMess').value);
+}
