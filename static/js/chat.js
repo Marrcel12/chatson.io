@@ -4,7 +4,7 @@ var sanitizeHTML = function (str) {
 	return temp.innerHTML;
 };
 function clickOnLogo() {
-    window.location.replace("http://chatson.me");
+    window.location.replace("https://chatson.me");
 }
 
 function toggleBlur() {
@@ -30,7 +30,6 @@ function expandCollapse() {
     if (document.getElementsByTagName('nav')[0].offsetHeight == 60) {
         document.getElementsByTagName('nav')[0].style.height = "340px";
         document.getElementById('expandOrCollapse').innerHTML = 'collapse'
-        console.log('kappa')
     } else {
         document.getElementsByTagName('nav')[0].style.height = "60px";
         document.getElementById('expandOrCollapse').innerHTML = 'expand'
@@ -103,7 +102,7 @@ $(document).ready(function () {
         var $input_mess = $(this).find("input[name=chat_mess]");
         var $input_encryption = $("#roomKey").val();
         if (!$input_mess.val() || !$input_encryption) {
-            alert("wypełnij oba pola");
+            alert("Please fill both fields");
         } else {
             // alert(encryption($input_mess.val(), $input_encryption).toString(),$input_encryption,$input_mess.val())
             $input_mess.val(
