@@ -39,7 +39,7 @@
             </div>
             <form method="post" autocomplete="off">
                 <input type="text" id="mess_to_send" name="chat_mess" id="chatMess" placeholder="Your Message">
-                <button onmouseover="checkIfEncryptionKey()" onmousedown="sanitizeForm()">Send</button>
+                <button onmousedown="checkIfEncryptionKey();sanitizeForm()">Send</button>
             </form>
         </div>
         <input type="hidden" value="0" id="adCounter">
