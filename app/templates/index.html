@@ -27,19 +27,19 @@
         <p>Or generate random one :&#41;</p>
         <form id="enterRoom" method="POST" id="main_form" autocomplete="off">
            <input type="hidden" name="wid" id="wid" value="">
-            <input type="text" name="key_id" id="roomCode" placehoder="Code..." />
+            <input type="text" name="room" id="roomCode" placehoder="Code..." />
             <button type="button" onclick="gencode()">Generate</button>
             <div id="users">
                 <div>
                     <p>User 1</p>
-                    <input type="radio" name="user" value="1">
+                    <input type="radio" name="name" value="1">
                 </div>
                 <div>
                     <p>User 2</p>
-                    <input type="radio" name="user" value="2">
+                    <input type="radio" name="name" value="2">
                 </div>
             </div>
-            <button class="g-recaptcha" data-sitekey="6LerCeMZAAAAAB0sX5vziXTk6fayka2w9bEsMfkO" data-callback="onSubmit" data-action="submit" onmousedown="sanitizeForm()">
+            <button class="g-recaptcha" data-sitekey="6LerCeMZAAAAAB0sX5vziXTk6fayka2w9bEsMfkO" data-callback="onSubmit" data-action="submit" id="submit" name="submit" type="submit" onmousedown="sanitizeForm()">
             Enter!
             </button>
         </form>
