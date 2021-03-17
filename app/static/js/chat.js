@@ -1,8 +1,9 @@
 var sanitizeHTML = function (str) {
-	var temp = document.createElement('div');
-	temp.textContent = str;
-	return temp.innerHTML;
+    var temp = document.createElement('div');
+    temp.textContent = str;
+    return temp.innerHTML;
 };
+
 function clickOnLogo() {
     window.location.replace("https://chatson.me");
 }
@@ -58,61 +59,54 @@ $("#send_key").click(function () {
     $("#roomKey").val(getCookie("key_encryption"));
 });
 // send and refresh chat
-function send_and_refresh() {
-    var jqxhr = $.getJSON("/chat_check", function () {})
-        .done(function (data) {
-            $("#chatWindow").html("");
-            $.each(data, function () {
-                if (this.user == 1) {
-                    class_to = 'class="user1"';
-                } else {
-                    class_to = 'class="user2"';
-                }
-                if (this.mess == null) {
-                    console.log("null");
-                } else {
-                    if (decryption(this.mess, $("#roomKey").val()).toString(CryptoJS.enc.Utf8) != "") {
-                        $("#chatWindow").append(
-                            "<p " +
-                            class_to +
-                            " > <span>" +
-                            decryption(this.mess, $("#roomKey").val()).toString(
-                                CryptoJS.enc.Utf8
-                            ) +
-                            "</span> </p>"
-                        );
-                    } else {
-                        $("#chatWindow").append(
-                            "<p " +
-                            class_to +
-                            " > <span>Failed to decode. Check Your room key.</span> </p>"
-                        );
-                    }
-                }
-            });
-        })
-        .fail(function () {
-            console.log("error");
-        });
-    setTimeout(send_and_refresh, 1000);
-}
-//   main form sending
+
+var socket;
 $(document).ready(function () {
-    $("form").submit(function () {
-        var $input_mess = $(this).find("input[name=chat_mess]");
-        var $input_encryption = $("#roomKey").val();
-        if (!$input_mess.val() || !$input_encryption) {
-            alert("Please fill both fields");
-        } else {
-            // alert(encryption($input_mess.val(), $input_encryption).toString(),$input_encryption,$input_mess.val())
-            $input_mess.val(
-                encryption($input_mess.val(), $input_encryption).toString()
-            );
-        }
+    socket = io.connect('http://' + document.domain + ':' + location.port + '/chat');
+    socket.on('connect', function () {
+        socket.emit('joined', {});
     });
-    send_and_refresh();
-});
+    socket.on('status', function (data) {
+        $('#chatWindow').html($('#chatWindow').html() + "<p " +
+                            "class='user2'" +
+                            " > <span>" +
+                            data.msg
+                             +
+                            "</span> </p>") ;
+        $('#chatWindow').scrollTop($('#chatWindow')[0].scrollHeight);
+    });
+    socket.on('message', function (data) {
+        $('#chatWindow').html($('#chatWindow').html() + "<p " +
+                            "class='user1'" +
+                            " > <span>" +
+                            data.msg
+                             +
+                            "</span> </p>") ;
+        $('#chatWindow').scrollTop($('#chatWindow')[0].scrollHeight);
+    });
+    $('#sendmess').click(function() {
+                        text = $('#chatMess').val();
+                        $('#chatMess').val('');
+                        socket.emit('text', {msg: text});
+                    
+                });
+}
+    
+);
 
 function sanitizeForm() {
     document.getElementById('chatMess').value = sanitizeHTML(document.getElementById('chatMess').value);
+}
+function savechat(){
+    var json = '['
+    var messages = document.getElementsByClassName('user1')
+    for(i=0; i<messages.length; i++){
+        var currentMess = messages[i].innerText;
+        json+='{"user": "'+currentMess.slice(0, currentMess.indexOf(':'))+'", "text":"'+currentMess.slice(currentMess.indexOf(':')+1, currentMess.length-1)+'"}'
+        if(i != messages.length-1){
+            json+=","
+        }
+    }
+    json+="]"
+    console.log(JSON.parse(json))
 }
