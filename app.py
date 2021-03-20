@@ -7,7 +7,9 @@ import logging
 import connectionString
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'vnkdjnfjknfl1232#'
+
 app.debug = True
+
 # logging section
 
 # only errors devs option
@@ -31,11 +33,15 @@ def encrypt(message, key: bytes) -> bytes:
     message = message.encode()
     return Fernet(key).encrypt(message)
 
+
 def decrypt(token, key: bytes) -> bytes:
     return Fernet(key).decrypt(token).decode()
 
+
 def rooms_id_generator(size=1, chars=string.ascii_uppercase + string.digits):
     return ''.join(random.choice(chars) for _ in range(size))
+
+
 def send_mess(user_number, chat, key, mess_counter_current):
     conn = psycopg2.connect(connectionString.connString)
     c = conn.cursor()
@@ -62,91 +68,55 @@ def get_mess(user_number, key, mess_counter_current):
     conn.close()
     return tab
 
+
 def prepare_mess(messeges):
     for i in messeges:
         dic_to_add = {"user": list(i)[:-2][0], "mess": list(i)[:-2][1]}
         session["messgeges"].append(dic_to_add)
 
-#@app.route('/', methods=['GET', 'POST'])
-#def index():
-#    if request.method == "POST" and request.form.get("key_id") != "" and request.form.get("user") != None:
-#        
-#        session["key"] = request.form.get("key_id")
-#        session["user"] = request.form.get("user")
-#        session["mess_counter_current"] = 1
-#        session["messgeges"] = []
-#        if(int(request.form.get("wid")) < 767):
-#            return redirect("/chat-mobile", code=302)
-#        else:
-#            return redirect("/chat", code=302)
-#    return render_template("index.html")
-#
-#@app.route('/chat', methods=["GET", 'POST'])
-#def sessions():
-#    try:
-#        if request.method == "POST":
-#            chat_mess = request.form.get('chat_mess')
-#            if chat_mess == "":
-#                response =  make_response(render_template('chat.html', error="You can't send blank mess!"))
-#                response.headers['Content-Security-Policy'] = "script-src 'self' http://51.195.101.71/"  
-#                response.headers['X-Content-Type-Options'] = 'nosniff'
-#                response.headers['X-Frame-Options'] = 'SAMEORIGIN'
-#                response.headers['X-XSS-Protection'] = '1; mode=block'
-#                return response
-#            else:
-#                # send mess
-#                send_mess(session["user"], chat_mess, session["key"], str(
-#                    session["mess_counter_current"]))
-#                session["mess_counter_current"] += 1
-#        response =  make_response(render_template('chat.html', uid = session["user"], roomID = session["key"]))
-#            'chat.html', uid=session["user"], roomID=session["key"]))
-#        # response.headers['Content-Security-Policy'] = "script-src 'self' http://51.195.101.71/" 'http://127.0.0.1:5000/'
-#        response.headers['X-Content-Type-Options'] = 'nosniff'
-#        response.headers['X-Frame-Options'] = 'SAMEORIGIN'
-#        response.headers['X-XSS-Protection'] = '1; mode=block'
-#        return response
-#    except:
-#        return redirect("/", code=302)
-#@app.route('/', methods=['GET', 'POST'])
-#def index():
-#    if request.method == "POST" and request.form.get("key_id") != "" and request.form.get("user") != None:
-#        
-#        session["key"] = request.form.get("key_id")
-#        session["user"] = request.form.get("user")
-#        session["mess_counter_current"] = 1
-#        session["messgeges"] = []
-#        if(int(request.form.get("wid")) < 767):
-#            return redirect("/chat-mobile", code=302)
-#        else:
-#            return redirect("/chat", code=302)
-#    return render_template("index.html")
-#
-#@app.route('/chat', methods=["GET", 'POST'])
-#def sessions():
-#    try:
-#        if request.method == "POST":
-#            chat_mess = request.form.get('chat_mess')
-#            if chat_mess == "":
-#                response =  make_response(render_template('chat.html', error="You can't send blank mess!"))
-#                response.headers['Content-Security-Policy'] = "script-src 'self' http://51.195.101.71/"  
-#                response.headers['X-Content-Type-Options'] = 'nosniff'
-#                response.headers['X-Frame-Options'] = 'SAMEORIGIN'
-#                response.headers['X-XSS-Protection'] = '1; mode=block'
-#                return response
-#            else:
-#                # send mess
-#                send_mess(session["user"], chat_mess, session["key"], str(
-#                    session["mess_counter_current"]))
-#                session["mess_counter_current"] += 1
-#        response =  make_response(render_template('chat.html', uid = session["user"], roomID = session["key"]))
-#            'chat.html', uid=session["user"], roomID=session["key"]))
-#        # response.headers['Content-Security-Policy'] = "script-src 'self' http://51.195.101.71/" 'http://127.0.0.1:5000/'
-#        response.headers['X-Content-Type-Options'] = 'nosniff'
-#        response.headers['X-Frame-Options'] = 'SAMEORIGIN'
-#        response.headers['X-XSS-Protection'] = '1; mode=block'
-#        return response
-#    except:
-#        return redirect("/", code=302)
+
+@app.route('/', methods=['GET', 'POST'])
+def index():
+    if request.method == "POST" and request.form.get("key_id") != "" and request.form.get("user") != None:
+
+        session["key"] = request.form.get("key_id")
+        session["user"] = request.form.get("user")
+        session["mess_counter_current"] = 1
+        session["messgeges"] = []
+        if(int(request.form.get("wid")) < 767):
+            return redirect("/chat-mobile", code=302)
+        else:
+            return redirect("/chat", code=302)
+    return render_template("index.html")
+
+
+@app.route('/chat', methods=["GET", 'POST'])
+def sessions():
+    try:
+        if request.method == "POST":
+            chat_mess = request.form.get('chat_mess')
+            if chat_mess == "":
+                response = make_response(render_template(
+                    'chat.html', error="You can't send blank mess!"))
+                response.headers['Content-Security-Policy'] = "script-src 'self' http://51.195.101.71/"
+                response.headers['X-Content-Type-Options'] = 'nosniff'
+                response.headers['X-Frame-Options'] = 'SAMEORIGIN'
+                response.headers['X-XSS-Protection'] = '1; mode=block'
+                return response
+            else:
+                # send mess
+                send_mess(session["user"], chat_mess, session["key"], str(
+                    session["mess_counter_current"]))
+                session["mess_counter_current"] += 1
+        response = make_response(render_template(
+            'chat.html', uid=session["user"], roomID=session["key"]))
+        # response.headers['Content-Security-Policy'] = "script-src 'self' http://51.195.101.71/" 'http://127.0.0.1:5000/'
+        response.headers['X-Content-Type-Options'] = 'nosniff'
+        response.headers['X-Frame-Options'] = 'SAMEORIGIN'
+        response.headers['X-XSS-Protection'] = '1; mode=block'
+        return response
+    except:
+        return redirect("/", code=302)
 
 # start new
 # prepare and loading function
