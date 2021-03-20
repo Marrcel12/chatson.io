@@ -139,7 +139,7 @@ def check_creditional(key, password):
     conn2 = psycopg2.connect("dbname=chatson user=chatson password=qaz123")
     c2 = conn2.cursor()
     c2.execute(
-        "SELECT key FROM chat_creds where save_passwd=%s and key=%s", (password, key))
+        "SELECT key FROM chat_creds where save_passwd=%s and key=%s;", (password, key))
     if len(c2.fetchall()) == 0:
         print("Wrong_password")
         conn2.close()
@@ -175,13 +175,25 @@ def load_chat_database(key, password):
         return [False, []]
     else:
         to_return = []
-        c.execute("SELECT user,text FROM chat_mess where key=%s", (key,))
+        c.execute("SELECT user,text FROM chat_mess where key=%s;", (key,))
 
         for message in c.fetchall():
             to_return.append({"user": message[0], "text": message[1]})
 
     return [True, to_return]
 
+
+def del_chat_database(key, password):
+    conn = psycopg2.connect("dbname=chatson user=chatson password=qaz123")
+    c = conn.cursor()
+    if not(check_creditional(key, password)):
+        return False
+    c.execute("DELETE FROM chat_table WHERE key=%s;", (key,))
+    c.execute(
+        "DELETE FROM chat_creds WHERE key=%s and save_passwd=%s;", (key, password))
+    conn.commit()
+    conn.close()
+    return True
 # routes
 
 
@@ -207,6 +219,13 @@ def load_chat():
     result = load_chat_database(key, data["save_passwd"])
     return jsonify({"success": result[0], "messages": result[1]})
 # TODO: DELfrom database
+
+
+@ app.route('/del_chat', methods=['POST'])
+def del_chat():
+    data = request.get_json()
+    result = del_chat_database(data["key"], data["save_passwd"])
+    return jsonify({"success": result})
 # end new
 
 
