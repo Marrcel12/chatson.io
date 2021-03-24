@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatson</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/fonts.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/chat_mobile.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/icon.png') }}">
+    <script src="{{ url_for('static', filename='vendors/jquery351.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendors/crypto.js') }}"> </script>
+    <script src="{{ url_for('static', filename='js/cookies.js') }}"></script>
+</head>
+
+<body>
+    <div id="init-input">
+        <h2>Please enter your encoding key</h2>
+        <input type="text" id="encoding">
+        <br>
+        <br>
+        <button id="submit-encryption" onclick="submitEncryption()">Submit key</button>
+    </div>
+    <div class="row container d-flex justify-content-center">
+        <div class="col-md-4">
+            <div class="box box-warning direct-chat direct-chat-warning">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Chatson.io</h3>
+                    <button onclick="savechat()">Save chat</button>
+                </div>
+                <div class="box-body">
+                    <div class="direct-chat-messages" id="chatWindow">
+                        
+                    </div>
+                </div>
+                <div class="box-footer">
+                        <div class="input-group"> <input type="text" name="message" id="mess-input" placeholder="Type Message ..." class="form-control"> <span class="input-group-btn"> <button type="button" class="btn btn-warning btn-flat" id="mess-btn">Send</button> </span> </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+    <script src="{{ url_for('static', filename='js/chat_mobileAddOn.js') }}"></script>
+</body>
+
+</html>

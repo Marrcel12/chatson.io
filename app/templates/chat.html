@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatson</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/fonts.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/chat_new.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/icon.png') }}">
+    <script
+      src="{{ url_for('static', filename='vendors/jquery351.js') }}"
+    ></script>
+    <script src="{{ url_for('static', filename='vendors/crypto.js') }}"> </script>
+    <script src="{{ url_for('static', filename='js/cookies.js') }}"></script>
+</head>
+<body>
+    <nav>
+       <div id="expandCollapse" style="cursor: pointer;" onclick="expandCollapse()">Touch to <div id="expandOrCollapse">expand</div> info</div>
+        <div id="user">User {{ uid }}</div>
+        <div id="key">
+            <div>
+                   Room ID: <span class="hidden blur" style="margin-right: 20px">{{roomID}}</span>
+                <div class="mobileBreaker"></div>
+                Key: <input type="text" id="roomKey" class="hidden blur" placeholder="Enter Your Key">
+                <button id="send_key">Save</button>
+            </div>
+            <div class="mobileBreaker"></div>
+            <button id="show" onclick="toggleBlur()">Show</button>
+        </div>
+    </nav>
+    <div id="chatSection">
+        <div id="chat">
+            <div id="chatWindow">
+            </div>
+                <input type="text" name="chat_mess" id="chatMess" placeholder="Your Message"> 
+            <button onmouseover="checkIfEncryptionKey()" onmousedown="sanitizeForm()" id="sendmess">Send</button>
+        </div>
+        <button onclick="savechat()">Save chat</button>
+    </div>
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.4.2.min.js"></script>
+        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+            <script src="{{ url_for('static', filename='js/chat.js') }}"></script>
+</body>
+</html>

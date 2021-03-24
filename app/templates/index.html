@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
+    <title>Chatson</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/fonts.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/icon.png') }}">
+</head>
+
+<body>
+    <nav>
+        <div id="logo" onclick="window.scrollTo(0, 0)"><img src="{{ url_for('static', filename='img/chatson_logo_white.png') }}" alt=""></div>
+        <ul>
+            <a href="#howDoesItWork">
+                <li>How does it work?</li>
+            </a>
+            <a href="#about">
+                <li>About us</li>
+            </a>
+        </ul>
+    </nav>
+    <header id="join">
+        <h1>Enter room code</h1>
+        <p>Or generate random one :&#41;</p>
+        <form id="enterRoom" method="POST" id="main_form" autocomplete="off">
+           <input type="hidden" name="wid" id="wid" value="">
+            <input type="text" name="room" id="roomCode" placehoder="Code..." />
+            <button type="button" onclick="gencode()">Generate</button>
+            <div id="users">
+                <div>
+                    <p>User 1</p>
+                    <input type="radio" name="name" value="1">
+                </div>
+                <div>
+                    <p>User 2</p>
+                    <input type="radio" name="name" value="2">
+                </div>
+            </div>
+            <button class="g-recaptcha" data-sitekey="6LerCeMZAAAAAB0sX5vziXTk6fayka2w9bEsMfkO" data-callback="onSubmit" data-action="submit" id="submit" name="submit" type="submit" onmousedown="sanitizeForm()">
+            Enter!
+            </button>
+        </form>
+        <div id="scrollDown">
+            <p>How does it work?</p>
+            <img src="{{ url_for('static', filename='img/arrow.svg') }}" alt="">
+        </div>
+    </header>
+<!--
+    <input type="hidden" value="0" id="adCounter">
+    <div class="ad">Ad</div>
+    <div class="ad" style="display: none">lol!</div>
+-->
+    <section id="howDoesItWork">
+        <h2>How does it Work?</h2>
+        <div id="explain">
+            <div class="step">
+                <div class="stepTitle">Privacy is your choice</div>
+                <div class="stepDetails">We believe that everyone has the right to anonymous correspondence. 
+                    That is why we decided to create a system that will be easy to use, and at the same time will provide a fully private conversation. 
+                    To which no one has access except people who know the room id and the encryption key</div>
+            </div>
+            <div class="step">
+                <div class="stepTitle">First protection</div>
+                <div class="stepDetails">
+                    In the first step you have to choose or create/enter your own conversation room id. 
+                    It is saved on our servers and encrypted. 
+                    It allows another person to join the conversation.</div>
+            </div>
+            <div class="step">
+                <div class="stepTitle">You get assigned to one of the rooms</div>
+                <div class="stepDetails">That's where we're gettin' started. 
+                    After entering room_id, you will be joined to the room where in the top right corner 
+                    you have to enter the message encryption key. This is key <b>is not saved </b>on the server. 
+                    After sending the message, the server receives an already encrypted message by your key. 
+                    Which is additionally encrypt with our key.
+
+                </div>
+            </div>
+            <div class="step">
+                <div class="stepTitle">Invite your friend</div>
+                <div class="stepDetails">To chat with another person completely anonymously, 
+                    enter the same room id and then the same encryption code.
+                    Additionally, we recommend using a VPN and connecting from trusted networks to avoid other hacker attacks.</div>
+            </div>
+            <div class="step">
+                <div class="stepTitle">We keep your chats private</div>
+                <div class="stepDetails">We do not collect any logs, about who connects to our server,
+                     and the encrypted chat that is stored with us on the server is worth nothing without user encryption keys.</div>
+            </div>
+            <div class="step">
+                <div class="stepTitle">You are safe</div>
+                <div class="stepDetails">If a leak occurs or our server has been hijacked, 
+                    your chats are securely encrypted and impossible to read without your key.
+                    The ciphers we use are approved and used by the NSA to protect top secret data. 
+                    So if your encryption code is not hijacked from your computer or disclosed to an inappropriate person, you are completely safe.</div>
+            </div>
+        </div>
+    </section>
+    <section id="about">
+        <h2 class="title">About us</h2>
+        <p>We are a group of young developers who value privacy and advocate an approach to privacy as a choice.<br>
+            We want the project to be always free and do not require any logging and profilng, so we decided that we are offering advertising on our site in baner section (write to us about this at mail@naprotonmmail) and for voluntary support on:</p>
+        <form action="">
+            <h2>Contact us</h2>
+            <input type="text" name="name" placeholder="Your name">
+            <input type="email" name="replyTo" placeholder="Your e-mail address (required)" required>
+            <input type="text" name="subject" placeholder="Subject (required)" required>
+            <textarea name="message" placeholder="Your message (required)" required></textarea>
+            <button type="submit">Send!</button>
+        </form>
+    </section>
+    <footer>&copy;2020-2020 | Made with &hearts; by <img src="{{ url_for('static', filename='img/malogoFooterWhite.png') }}" alt="M&A"> <i><a href="sss" style="text-decoration: none; font-size: smaller; color:white;">Privacy and information</a> </i>  
+    </footer>
+    <script src="{{ url_for('static', filename='vendors/jquery351.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/adSlider.js') }}"></script>
+</body>
+
+</html>
