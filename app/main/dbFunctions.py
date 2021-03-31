@@ -1,4 +1,5 @@
-import connectionString
+import psycopg2
+from . import connectionString
 def check_if_id_not_in_base(id):
     conn = psycopg2.connect(connectionString.connString)
     c = conn.cursor()
@@ -38,7 +39,7 @@ def save_chat_database(data, new_key):
     conn = psycopg2.connect(connectionString.connString)
     c = conn.cursor()
     key = data["key"]
-    password = data["save_passwd"]
+    password = data["savePasswd"]
     if new_key:
         to_execute = (key, password)
         c.execute(

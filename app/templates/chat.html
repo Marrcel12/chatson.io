@@ -36,9 +36,11 @@
             <button onmouseover="checkIfEncryptionKey()" onmousedown="sanitizeForm()" id="sendmess">Send</button>
         </div>
         <button onclick="savechat()">Save chat</button>
+        <button onclick="loadchat()">Load chat</button>
+        <button onclick="delchat()">Delete chat</button>
     </div>
     <script type="text/javascript" src="//code.jquery.com/jquery-1.4.2.min.js"></script>
-        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.1.3/socket.io.min.js"></script>
             <script src="{{ url_for('static', filename='js/chat.js') }}"></script>
 </body>
 </html>

@@ -62,51 +62,71 @@ $("#send_key").click(function () {
 
 var socket;
 $(document).ready(function () {
-    socket = io.connect('http://' + document.domain + ':' + location.port + '/chat');
-    socket.on('connect', function () {
-        socket.emit('joined', {});
-    });
-    socket.on('status', function (data) {
-        $('#chatWindow').html($('#chatWindow').html() + "<p " +
-                            "class='user2'" +
-                            " > <span>" +
-                            data.msg
-                             +
-                            "</span> </p>") ;
-        $('#chatWindow').scrollTop($('#chatWindow')[0].scrollHeight);
-    });
-    socket.on('message', function (data) {
-        $('#chatWindow').html($('#chatWindow').html() + "<p " +
-                            "class='user1'" +
-                            " > <span>" +
-                            data.msg
-                             +
-                            "</span> </p>") ;
-        $('#chatWindow').scrollTop($('#chatWindow')[0].scrollHeight);
-    });
-    $('#sendmess').click(function() {
-                        text = $('#chatMess').val();
-                        $('#chatMess').val('');
-                        socket.emit('text', {msg: text});
-                    
-                });
-}
-    
+        socket = io.connect('http://' + document.domain + ':' + location.port + '/chat');
+        socket.on('connect', function () {
+            socket.emit('joined', {});
+        });
+        socket.on('status', function (data) {
+            $('#chatWindow').html($('#chatWindow').html() + "<p " +
+                "class='user2'" +
+                " > <span>" +
+                data.msg +
+                "</span> </p>");
+            $('#chatWindow').scrollTop($('#chatWindow')[0].scrollHeight);
+        });
+        socket.on('message', function (data) {
+            $('#chatWindow').html($('#chatWindow').html() + "<p " +
+                "class='user1'" +
+                " > <span>" +
+                data.msg +
+                "</span> </p>");
+            $('#chatWindow').scrollTop($('#chatWindow')[0].scrollHeight);
+        });
+        $('#sendmess').click(function () {
+            text = $('#chatMess').val();
+            $('#chatMess').val('');
+            socket.emit('text', {
+                msg: text
+            });
+
+        });
+    }
+
 );
 
 function sanitizeForm() {
     document.getElementById('chatMess').value = sanitizeHTML(document.getElementById('chatMess').value);
 }
-function savechat(){
-    var json = '['
+
+function savechat() {
+    key = null
+    haslo = prompt('Utwórz hasło czatu')
+    var json = '{"key":"' + key + '","savePasswd":"' + haslo + '","messages":['
     var messages = document.getElementsByClassName('user1')
-    for(i=0; i<messages.length; i++){
+    for (i = 0; i < messages.length; i++) {
         var currentMess = messages[i].innerText;
-        json+='{"user": "'+currentMess.slice(0, currentMess.indexOf(':'))+'", "text":"'+currentMess.slice(currentMess.indexOf(':')+1, currentMess.length-1)+'"}'
-        if(i != messages.length-1){
-            json+=","
+        json += '{"user": "' + currentMess.slice(0, currentMess.indexOf(':')) + '", "text":"' + currentMess.slice(currentMess.indexOf(':') + 1, currentMess.length - 1) + '"}'
+        if (i != messages.length - 1) {
+            json += ","
         }
     }
-    json+="]"
+    json += "]}"
     console.log(JSON.parse(json))
+    sendRequest("/save_chat", JSON.parse(json))
+}
+
+function sendRequest(endpoint, content) {
+    var xhr = new XMLHttpRequest();
+    var url = endpoint;
+    console.log(endpoint)
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            var json = JSON.parse(xhr.responseText);
+            console.log(json);
+        }
+    };
+    var data = JSON.stringify(content)
+    xhr.send(data);
 }
