@@ -59,47 +59,46 @@ $("#send_key").click(function () {
     $("#roomKey").val(getCookie("key_encryption"));
 });
 // send and refresh chat
-
 var socket;
 $(document).ready(function () {
-        socket = io.connect('http://' + document.domain + ':' + location.port + '/chat');
-        socket.on('connect', function () {
-            socket.emit('joined', {});
+    socket = io.connect('http://' + document.domain + ':' + location.port + '/chat');
+    socket.on('connect', function () {
+        socket.emit('joined', {});
+    });
+    socket.on('status', function (data) {
+        $('#chatWindow').html($('#chatWindow').html() + "<p " +
+            "class='user2'" +
+            " > <span>" +
+            data.msg +
+            "</span> </p>");
+        $('#chatWindow').scrollTop($('#chatWindow')[0].scrollHeight);
+    });
+    socket.on('message', function (data) {
+        $('#chatWindow').html($('#chatWindow').html() + "<p " +
+            "class='user1'" +
+            " > <span>" +
+            data.msg +
+            "</span> </p>");
+        $('#chatWindow').scrollTop($('#chatWindow')[0].scrollHeight);
+    });
+    $('#sendmess').click(function () {
+        text = $('#chatMess').val();
+        $('#chatMess').val('');
+        socket.emit('text', {
+            msg: text
         });
-        socket.on('status', function (data) {
-            $('#chatWindow').html($('#chatWindow').html() + "<p " +
-                "class='user2'" +
-                " > <span>" +
-                data.msg +
-                "</span> </p>");
-            $('#chatWindow').scrollTop($('#chatWindow')[0].scrollHeight);
-        });
-        socket.on('message', function (data) {
-            $('#chatWindow').html($('#chatWindow').html() + "<p " +
-                "class='user1'" +
-                " > <span>" +
-                data.msg +
-                "</span> </p>");
-            $('#chatWindow').scrollTop($('#chatWindow')[0].scrollHeight);
-        });
-        $('#sendmess').click(function () {
-            text = $('#chatMess').val();
-            $('#chatMess').val('');
-            socket.emit('text', {
-                msg: text
-            });
-
-        });
-    }
-
-);
+    });
+});
 
 function sanitizeForm() {
     document.getElementById('chatMess').value = sanitizeHTML(document.getElementById('chatMess').value);
 }
 
 function savechat() {
-    key = null
+    key = prompt("Podaj swój klucz, jeśli nie masz, zostaw puste")
+    if (key == "") {
+        key = null
+    }
     haslo = prompt('Utwórz hasło czatu')
     var json = '{"key":"' + key + '","savePasswd":"' + haslo + '","messages":['
     var messages = document.getElementsByClassName('user1')
@@ -111,22 +110,86 @@ function savechat() {
         }
     }
     json += "]}"
-    console.log(JSON.parse(json))
-    sendRequest("/save_chat", JSON.parse(json))
+    jsonToSend = JSON.parse(json);
+    var xhr = new XMLHttpRequest();
+    var url = "/save_chat";
+    var respToReturn;
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            var json = JSON.parse(xhr.responseText);
+            console.log(json['success']);
+            if (json['success']) {
+                alert("Zapis się powiódł, twoje dane to Klucz: " + json['key'] + " Hasło: " + haslo)
+            } else {
+                alert("Wystąpił błąd, spróbuj ponownie")
+            }
+        }
+    };
+    var data = JSON.stringify(jsonToSend)
+    xhr.send(data);
 }
 
-function sendRequest(endpoint, content) {
+function loadchat() {
+    key = prompt("Podaj swój klucz")
+    if (key == "") {
+        key = null
+    }
+    haslo = prompt('Podaj hasło')
+    var json = '{"key":"' + key + '","savePasswd":"' + haslo + '"}'
+    jsonToSend = JSON.parse(json);
     var xhr = new XMLHttpRequest();
-    var url = endpoint;
-    console.log(endpoint)
+    var url = "/load_chat";
+    var respToReturn;
     xhr.open("POST", url, true);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
             var json = JSON.parse(xhr.responseText);
             console.log(json);
+            if (json['success']) {
+                for (var i = 0; i < json['messages'].length; i++) {
+                    var msg = json['messages'][i]['user'] + ':' + json['messages'][i]['text'];
+                    $('#chatWindow').html($('#chatWindow').html() + "<p " +
+                        "class='user1'" +
+                        " > <span>" +
+                        msg +
+                        "</span> </p>");
+                }
+            } else {
+                alert("Wystąpił błąd, spróbuj ponownie")
+            }
         }
     };
-    var data = JSON.stringify(content)
+    var data = JSON.stringify(jsonToSend)
+    xhr.send(data);
+}
+
+function delchat() {
+    key = prompt("Podaj swój klucz")
+    if (key == "") {
+        key = null
+    }
+    haslo = prompt('Podaj hasło')
+    var json = '{"key":"' + key + '","savePasswd":"' + haslo + '"}'
+    jsonToSend = JSON.parse(json);
+    var xhr = new XMLHttpRequest();
+    var url = "/del_chat";
+    var respToReturn;
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            var json = JSON.parse(xhr.responseText);
+            console.log(json);
+            if (json['success']) {
+                alert("Rozmowa została usunięta, jest bezpiecznie")
+            } else {
+                alert("Wystąpił błąd, spróbuj ponownie")
+            }
+        }
+    };
+    var data = JSON.stringify(jsonToSend)
     xhr.send(data);
 }

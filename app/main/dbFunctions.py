@@ -1,5 +1,11 @@
 import psycopg2
 from . import connectionString
+import string
+import random
+
+def rooms_id_generator(size=1, chars=string.ascii_uppercase + string.digits):
+    return ''.join(random.choice(chars) for _ in range(size))
+
 def check_if_id_not_in_base(id):
     conn = psycopg2.connect(connectionString.connString)
     c = conn.cursor()

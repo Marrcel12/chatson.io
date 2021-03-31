@@ -1,5 +1,4 @@
-from flask import session, redirect, url_for, render_template, request
-import jsonify
+from flask import session, redirect, url_for, render_template, request, jsonify
 from . import main
 from . import dbFunctions
 
@@ -35,17 +34,17 @@ def save_chat():
         data["key"] = dbFunctions.pre_gen(12)
         new_key = True
     success = dbFunctions.save_chat_database(data, new_key)
-    print("success")
     if success:
         key_return = data["key"]
-    return jsonify({"success": success, "key": key_return})
+    print(success, key_return)
+    return ({"success": success, "key": key_return})
 
 
 @main.route('/load_chat', methods=['POST'])
 def load_chat():
     data = request.get_json()
     key = data["key"]
-    result = dbFunctions.load_chat_database(key, data["save_passwd"])
+    result = dbFunctions.load_chat_database(key, data["savePasswd"])
     return jsonify({"success": result[0], "messages": result[1]})
 # TODO: DELfrom database
 
@@ -53,6 +52,6 @@ def load_chat():
 @main.route('/del_chat', methods=['POST'])
 def del_chat():
     data = request.get_json()
-    result = dbFunctions.del_chat_database(data["key"], data["save_passwd"])
+    result = dbFunctions.del_chat_database(data["key"], data["savePasswd"])
     return jsonify({"success": result})
 # end new
