@@ -69,16 +69,18 @@ def load_chat_database(key, password):
         return [False, []]
     else:
         to_return = []
-        c.execute("SELECT user,text FROM chat_mess where key=%s;", (key,))
+        c.execute('SELECT "user",text FROM chat_mess where key=%s;', (key,))
+        print(key)
 
         for message in c.fetchall():
+            print(message)
             to_return.append({"user": message[0], "text": message[1]})
 
     return [True, to_return]
 
 
 def del_chat_database(key, password):
-    conn = psycopg2.connect("dbname=chatson user=chatson password=qaz123")
+    conn = psycopg2.connect(connectionString.connString)
     c = conn.cursor()
     if not(check_creditional(key, password)):
         return False
