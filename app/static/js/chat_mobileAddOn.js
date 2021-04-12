@@ -95,16 +95,97 @@ $(document).ready(function () {
 function sanitizeForm() {
     document.getElementById('chatMess').value = sanitizeHTML(document.getElementById('chatMess').value);
 }
-function savechat(){
+function savechat() {
+    key = prompt("Podaj swój klucz, jeśli nie masz, zostaw puste")
+    if (key == "") {
+        key = null
+    }
+    haslo = prompt('Utwórz hasło czatu')
+    var json = '{"key":"' + key + '","savePasswd":"' + haslo + '","messages":['
     var messUsers = $('.userName');
     var messages = $('.message');
-    var json = '['
     for(i=0; i<messages.length; i++){
         json+='{"user": "'+messUsers[i].innerText+'", "text":"'+messages[i].innerText+'"}'
         if(i != messages.length-1){
             json+=","
         }
     }
-    json+="]"
-    console.log(JSON.parse(json))
+    json += "]}"
+    jsonToSend = JSON.parse(json);
+    var xhr = new XMLHttpRequest();
+    var url = "/save_chat";
+    var respToReturn;
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            var json = JSON.parse(xhr.responseText);
+            console.log(json['success']);
+            if (json['success']) {
+                alert("Zapis się powiódł, twoje dane to Klucz: " + json['key'] + " Hasło: " + haslo)
+            } else {
+                alert("Wystąpił błąd, spróbuj ponownie")
+            }
+        }
+    };
+    var data = JSON.stringify(jsonToSend)
+    xhr.send(data);
+}
+function loadchat() {
+    key = prompt("Podaj swój klucz")
+    if (key == "") {
+        key = null
+    }
+    haslo = prompt('Podaj hasło')
+    var json = '{"key":"' + key + '","savePasswd":"' + haslo + '"}'
+    jsonToSend = JSON.parse(json);
+    var xhr = new XMLHttpRequest();
+    var url = "/load_chat";
+    var respToReturn;
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            var json = JSON.parse(xhr.responseText);
+            console.log(json);
+            if (json['success']) {
+                for (var i = 0; i < json['messages'].length; i++) {                    
+                    $('#chatWindow').html($('#chatWindow').html() + '<div class="direct-chat-msg right"> <div class="direct-chat-info clearfix"> <span class="direct-chat-name pull-right userName">'+json['messages'][i]['user']+'</span> </div> <div class="direct-chat-text message"> '+json['messages'][i]['text']+' </div></div>');
+                    
+                }
+            } else {
+                alert("Wystąpił błąd, spróbuj ponownie")
+            }
+        }
+    };
+    var data = JSON.stringify(jsonToSend)
+    xhr.send(data);
+}
+
+function delchat() {
+    key = prompt("Podaj swój klucz")
+    if (key == "") {
+        key = null
+    }
+    haslo = prompt('Podaj hasło')
+    var json = '{"key":"' + key + '","savePasswd":"' + haslo + '"}'
+    jsonToSend = JSON.parse(json);
+    var xhr = new XMLHttpRequest();
+    var url = "/del_chat";
+    var respToReturn;
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            var json = JSON.parse(xhr.responseText);
+            console.log(json);
+            if (json['success']) {
+                alert("Rozmowa została usunięta, jest bezpiecznie")
+            } else {
+                alert("Wystąpił błąd, spróbuj ponownie")
+            }
+        }
+    };
+    var data = JSON.stringify(jsonToSend)
+    xhr.send(data);
 }
