@@ -59,7 +59,7 @@ function encryption(mess, key) {
 }
 
 function decryption(mess_ecrypted, key) {
-    return CryptoJS.AES.decrypt(mess_ecrypted, key);
+    return CryptoJS.AES.decrypt(mess_ecrypted, key).toString(CryptoJS.enc.Utf8);
 }
 // load key from cookies
 $("#roomKey").val(getCookie("key_encryption"));
@@ -105,15 +105,12 @@ function decryptMess(){
     
     mess = $('.user1')[$('.user1').length-1];
     toDecrypt = mess.children[0].innerText.slice(mess.children[0].innerText.indexOf(':') + 1, mess.children[0].innerText.length)
-    console.log(decryption(toDecrypt,'kkk').toString() )
-    console.log(toDecrypt.toString())
-    console.log(getCookie("key_encryption"))
+
+    mess.children[0].innerText = decryption(toDecrypt,getCookie("key_encryption")).toString()
 }
 
 function sanitizeForm() {
-    console.log(getCookie("key_encryption"))
-    encrypted = encryption(sanitizeHTML(document.getElementById('chatMess').value),'kkk')
-    console.log(encrypted.toString())
+    encrypted = encryption(sanitizeHTML(document.getElementById('chatMess').value),getCookie("key_encryption"))
     document.getElementById('chatMess').value = encrypted;
 }
 
