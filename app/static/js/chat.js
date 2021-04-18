@@ -10,7 +10,7 @@ function clickOnLogo() {
 
 function toggleBlur() {
     hidELem = document.getElementsByClassName('hidden');
-    for (i = 0; i < 2; i++) {
+    for (i = 0; i < 3; i++) {
         if (hidELem[i].classList[1] == "blur") {
             hidELem[i].classList.remove('blur')
             document.getElementById('show').classList.add('toggled')
@@ -18,6 +18,17 @@ function toggleBlur() {
             hidELem[i].classList.add('blur')
             document.getElementById('show').classList.remove('toggled')
         }
+    }
+}
+function showChatOptions() {
+        if (document.getElementById('save').classList[0] != 'toggled') {
+            document.getElementById('save').classList.add('toggled')
+            document.getElementById('chatOptions').classList.add('shown')
+
+        } else {
+            document.getElementById('save').classList.remove('toggled')
+            document.getElementById('chatOptions').classList.remove('shown')
+        
     }
 }
 
@@ -79,6 +90,7 @@ $(document).ready(function () {
             " > <span>" +
             data.msg +
             "</span> </p>");
+        decryptMess()
         $('#chatWindow').scrollTop($('#chatWindow')[0].scrollHeight);
     });
     $('#sendmess').click(function () {
@@ -89,9 +101,20 @@ $(document).ready(function () {
         });
     });
 });
+function decryptMess(){
+    
+    mess = $('.user1')[$('.user1').length-1];
+    toDecrypt = mess.children[0].innerText.slice(mess.children[0].innerText.indexOf(':') + 1, mess.children[0].innerText.length)
+    console.log(decryption(toDecrypt,'kkk').toString() )
+    console.log(toDecrypt.toString())
+    console.log(getCookie("key_encryption"))
+}
 
 function sanitizeForm() {
-    document.getElementById('chatMess').value = sanitizeHTML(document.getElementById('chatMess').value);
+    console.log(getCookie("key_encryption"))
+    encrypted = encryption(sanitizeHTML(document.getElementById('chatMess').value),'kkk')
+    console.log(encrypted.toString())
+    document.getElementById('chatMess').value = encrypted;
 }
 
 function savechat() {

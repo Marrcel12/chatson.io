@@ -27,18 +27,9 @@
         <p>Or generate random one :&#41;</p>
         <form id="enterRoom" method="POST" id="main_form" autocomplete="off">
            <input type="hidden" name="wid" id="wid" value="">
-            <input type="text" name="room" id="roomCode" placehoder="Code..." />
+            <input type="text" name="room" id="roomCode" placeholder="Room code">
             <button type="button" onclick="gencode()">Generate</button>
-            <div id="users">
-                <div>
-                    <p>User 1</p>
-                    <input type="radio" name="name" value="1">
-                </div>
-                <div>
-                    <p>User 2</p>
-                    <input type="radio" name="name" value="2">
-                </div>
-            </div>
+                <input type="text" id="uname" name="name" required placeholder="Username">
             <button class="g-recaptcha" data-sitekey="6LerCeMZAAAAAB0sX5vziXTk6fayka2w9bEsMfkO" data-callback="onSubmit" data-action="submit" id="submit" name="submit" type="submit" onmousedown="sanitizeForm()">
             Enter!
             </button>
@@ -112,7 +103,7 @@
             <button type="submit">Send!</button>
         </form>
     </section>
-    <footer>&copy;2020-2020 | Made with &hearts; by <img src="{{ url_for('static', filename='img/malogoFooterWhite.png') }}" alt="M&A"> <i><a href="sss" style="text-decoration: none; font-size: smaller; color:white;">Privacy and information</a> </i>  
+    <footer>&copy;2020-2021 | Made with &hearts; by <img src="{{ url_for('static', filename='img/malogoFooterWhite.png') }}" alt="M&A"> <i><a href="sss" style="text-decoration: none; font-size: smaller; color:white;">Privacy and information</a> </i>  
     </footer>
     <script src="{{ url_for('static', filename='vendors/jquery351.js') }}"></script>
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>

@@ -6,8 +6,8 @@ var sanitizeHTML = function (str) {
 document.getElementById('wid').value = window.innerWidth;
 
 function gencode() {
-    $.get("/gen_new_rooms_id", function (data) {
-        document.getElementById('roomCode').value = data[0]
+    $.get("/gen_room", function (data) {
+        document.getElementById('roomCode').value = data["roomId"]
     });
 };
 
@@ -22,5 +22,6 @@ $("#button_send_data").click(function () {
 
 function sanitizeForm() {
     document.getElementById('roomCode').value = sanitizeHTML(document.getElementById('roomCode').value);
+    document.getElementById('uname').value = sanitizeHTML(document.getElementById('uname').value);
 }
 

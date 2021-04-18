@@ -122,8 +122,46 @@ button {
     display: inline;
 }
 
+#save img {
+    filter: invert(1);
+    width: 16px;
+}
+
+#save {
+    width: 41px;
+    transition: .2s linear;
+    position: relative;
+    top: 2px;
+}
+#chatOptions{
+    position: relative;
+    top:0;
+        background-color: #3993ff;
+        color: white;
+        height: 50;
+        width: 100vw;
+        padding: 10px;
+        display: grid;
+        grid-template-columns: 33% 33% 33%;
+        text-align: center;
+    z-index: 9;
+    transition: .3s linear;
+}
+#chatOptions.shown{
+            top: 63px;
+}
+#chatOptions button{
+    width: 100px;
+    height: 30px;
+    margin: 0 auto;
+    border: 2px solid white;
+    border-radius: 7px; 
+    background-color: #3993ff;
+    color: white;
+}
+
 /*medium screens*/
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 800px) {
     #chat {
         margin: 100px auto 50px auto;
         width: 80vw;
@@ -147,7 +185,7 @@ button {
         z-index: 10;
         padding: 10px;
         display: grid;
-        grid-template-columns: 101px auto;
+        grid-template-columns: auto auto;
     }
 
     nav > #user {
@@ -187,8 +225,6 @@ button {
         background-color: white !important;
     }
 
-    .mobileBreaker,
-    #expandCollapse {
-        display: none;
-    }
+
+
 }

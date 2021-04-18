@@ -55,3 +55,8 @@ def del_chat():
     result = dbFunctions.del_chat_database(data["key"], data["savePasswd"])
     return jsonify({"success": result})
 # end new
+
+@main.route('/gen_room', methods=['GET'])
+def gen_room():
+    result = dbFunctions.pre_gen(16)
+    return jsonify({"roomId": result})
