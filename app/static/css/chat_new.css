@@ -133,32 +133,47 @@ button {
     position: relative;
     top: 2px;
 }
-#chatOptions, #saveChat, #loadChat, #delChat{
+
+#chatOptions,
+#saveChat,
+#loadChat,
+#delChat {
     position: absolute;
-    top:0;
-        background-color: #3993ff;
-        color: white;
-        height: 50;
-        width: 100vw;
-        padding: 10px;
-        display: grid;
-        grid-template-columns: 33% 33% 33%;
-        text-align: center;
+    top: 0;
+    background-color: #3993ff;
+    color: white;
+    height: 50;
+    width: 100vw;
+    padding: 10px;
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+    text-align: center;
     z-index: 9;
     transition: .3s linear;
 }
-#saveChat, #loadChat, #delChat{
+
+#saveChat,
+#loadChat,
+#delChat {
     grid-template-columns: 25% 25% 25% 25%;
 }
-#chatOptions.shown, #saveChat.shown, #loadChat.shown, #delChat.shown{
-            top: 63px;
+
+#chatOptions.shown,
+#saveChat.shown,
+#loadChat.shown,
+#delChat.shown {
+    top: 63px;
 }
-#chatOptions button, #saveChat button, #loadChat button, #delChat button{
+
+#chatOptions button,
+#saveChat button,
+#loadChat button,
+#delChat button {
     width: 100px;
     height: 30px;
     margin: 0 auto;
     border: 2px solid white;
-    border-radius: 7px; 
+    border-radius: 7px;
     background-color: #3993ff;
     color: white;
 }
@@ -227,7 +242,4 @@ button {
         color: #3993ff !important;
         background-color: white !important;
     }
-
-
-
 }

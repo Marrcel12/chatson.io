@@ -224,3 +224,71 @@ body {
     height: 30px;
     border-radius: 5px;
 }
+
+#openSaveMenu {
+    display: inline-block;
+    width: 30px;
+    position: absolute;
+    height: 30px;
+    right: 20px;
+    top: 5px;
+}
+
+#chatOptions,
+#saveChat,
+#loadChat,
+#delChat {
+    display: none;
+    position: fixed;
+    height: calc(100vh - 40px);
+    width: 100%;
+    background-color: white;
+    z-index: 11;
+    text-align: center;
+    padding-top: 20vh;
+}
+
+#chatOptions button,
+#saveChat button,
+#loadChat button,
+#delChat button,
+#chatOptions input,
+#saveChat input,
+#loadChat input,
+#delChat input {
+    display: block;
+    position: relative;
+    margin: 0 auto;
+    width: 300px;
+    height: 40px;
+    margin-bottom: 20px;
+    color: #3993ff;
+    border: 3px solid #3993ff;
+    background-color: white;
+    text-align: center;
+    border-radius: 7px;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+#save img {
+    width: 16px;
+}
+
+#save {
+    width: 30px;
+    height: 30px;
+    transition: .2s linear;
+    position: relative;
+    border: 2px solid black;
+    padding: 3px;
+    border-radius: 5px;
+}
+
+.toggled {
+    filter: invert(1);
+}
+
+.shown {
+    display: block !important;
+}

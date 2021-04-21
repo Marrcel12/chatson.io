@@ -4,58 +4,45 @@ var sanitizeHTML = function (str) {
     return temp.innerHTML;
 };
 
-function clickOnLogo() {
-    window.location.replace("https://chatson.me");
-}
-
-function toggleBlur() {
-    hidELem = document.getElementsByClassName('hidden');
-    for (i = 0; i < 3; i++) {
-        if (hidELem[i].classList[1] == "blur") {
-            hidELem[i].classList.remove('blur')
-            document.getElementById('show').classList.add('toggled')
-        } else {
-            hidELem[i].classList.add('blur')
-            document.getElementById('show').classList.remove('toggled')
-        }
-    }
-}
 function showChatOptions() {
-        if (document.getElementById('save').classList[0] != 'toggled') {
-            document.getElementById('save').classList.add('toggled')
-            document.getElementById('chatOptions').classList.add('shown')
-
-        } else {
-            document.getElementById('save').classList.remove('toggled')
-            document.getElementById('chatOptions').classList.remove('shown')
-            document.getElementById('saveChat').classList.remove('shown')
-            document.getElementById('loadChat').classList.remove('shown')
-            document.getElementById('delChat').classList.remove('shown')
-    }
-}
-function showsavechat() {
-            document.getElementById('chatOptions').classList.remove('shown')
-            document.getElementById('saveChat').classList.add('shown')
-}
-function showloadchat() {
-            document.getElementById('chatOptions').classList.remove('shown')
-            document.getElementById('loadChat').classList.add('shown')
-}
-function showdelchat() {
-            document.getElementById('chatOptions').classList.remove('shown')
-            document.getElementById('delChat').classList.add('shown')
-}
-function closeWindows(toClose) {
-    if(toClose == "save"){
+    if (document.getElementById('save').classList[0] != 'toggled') {
+        document.getElementById('save').classList.add('toggled')
+        document.getElementById('chatOptions').classList.add('shown')
+    } else {
+        document.getElementById('save').classList.remove('toggled')
+        document.getElementById('chatOptions').classList.remove('shown')
         document.getElementById('saveChat').classList.remove('shown')
-    }else if(toClose == "load"){
         document.getElementById('loadChat').classList.remove('shown')
-    }else if(toClose == "del"){
         document.getElementById('delChat').classList.remove('shown')
     }
-        document.getElementById('chatOptions').classList.add('shown')
-            
 }
+
+function showsavechat() {
+    document.getElementById('chatOptions').classList.remove('shown')
+    document.getElementById('saveChat').classList.add('shown')
+}
+
+function showloadchat() {
+    document.getElementById('chatOptions').classList.remove('shown')
+    document.getElementById('loadChat').classList.add('shown')
+}
+
+function showdelchat() {
+    document.getElementById('chatOptions').classList.remove('shown')
+    document.getElementById('delChat').classList.add('shown')
+}
+
+function closeWindows(toClose) {
+    if (toClose == "save") {
+        document.getElementById('saveChat').classList.remove('shown')
+    } else if (toClose == "load") {
+        document.getElementById('loadChat').classList.remove('shown')
+    } else if (toClose == "del") {
+        document.getElementById('delChat').classList.remove('shown')
+    }
+    document.getElementById('chatOptions').classList.add('shown')
+}
+
 function checkIfEncryptionKey() {
     if (document.getElementById('roomKey').value == "") {
         alert('Please enter room key before sending message')
@@ -125,16 +112,15 @@ $(document).ready(function () {
         });
     });
 });
-function decryptMess(){
-    
-    mess = $('.user1')[$('.user1').length-1];
-    toDecrypt = mess.children[0].innerText.slice(mess.children[0].innerText.indexOf(':') + 1, mess.children[0].innerText.length)
 
-    mess.children[0].innerText = decryption(toDecrypt,getCookie("key_encryption")).toString()
+function decryptMess() {
+    mess = $('.user1')[$('.user1').length - 1];
+    toDecrypt = mess.children[0].innerText.slice(mess.children[0].innerText.indexOf(':') + 1, mess.children[0].innerText.length)
+    mess.children[0].innerText = decryption(toDecrypt, getCookie("key_encryption")).toString()
 }
 
 function sanitizeForm() {
-    encrypted = encryption(sanitizeHTML(document.getElementById('chatMess').value),getCookie("key_encryption"))
+    encrypted = encryption(sanitizeHTML(document.getElementById('chatMess').value), getCookie("key_encryption"))
     document.getElementById('chatMess').value = encrypted;
 }
 
@@ -144,37 +130,37 @@ function savechat() {
         key = null
     }
     haslo = sanitizeHTML(document.getElementById('savePass').value)
-    if(haslo != ""){
+    if (haslo != "") {
         var json = '{"key":"' + key + '","savePasswd":"' + haslo + '","messages":['
-    var messages = document.getElementsByClassName('user1')
-    for (i = 0; i < messages.length; i++) {
-        var currentMess = messages[i].innerText;
-        json += '{"user": "' + currentMess.slice(0, currentMess.indexOf(':')) + '", "text":"' + currentMess.slice(currentMess.indexOf(':') + 1, currentMess.length - 1) + '"}'
-        if (i != messages.length - 1) {
-            json += ","
-        }
-    }
-    json += "]}"
-    jsonToSend = JSON.parse(json);
-    var xhr = new XMLHttpRequest();
-    var url = "/save_chat";
-    var respToReturn;
-    xhr.open("POST", url, true);
-    xhr.setRequestHeader("Content-Type", "application/json");
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            var json = JSON.parse(xhr.responseText);
-            console.log(json['success']);
-            if (json['success']) {
-                alert("Save successful, Your key: " + json['key'] + " password: " + haslo)
-            } else {
-                alert("Error occured, try again")
+        var messages = document.getElementsByClassName('user1')
+        for (i = 0; i < messages.length; i++) {
+            var currentMess = messages[i].innerText;
+            json += '{"user": "' + currentMess.slice(0, currentMess.indexOf(':')) + '", "text":"' + encryption(currentMess.slice(currentMess.indexOf(':') + 1, currentMess.length - 1), getCookie('key_encryption')) + '"}'
+            if (i != messages.length - 1) {
+                json += ","
             }
         }
-    };
-    var data = JSON.stringify(jsonToSend)
-    xhr.send(data);
-    }else{
+        json += "]}"
+        jsonToSend = JSON.parse(json);
+        var xhr = new XMLHttpRequest();
+        var url = "/save_chat";
+        var respToReturn;
+        xhr.open("POST", url, true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                var json = JSON.parse(xhr.responseText);
+                console.log(json['success']);
+                if (json['success']) {
+                    alert("Save successful, Your key: " + json['key'] + " password: " + haslo)
+                } else {
+                    alert("Error occured, try again")
+                }
+            }
+        };
+        var data = JSON.stringify(jsonToSend)
+        xhr.send(data);
+    } else {
         alert("Password cannot be empty")
     }
 }
@@ -185,36 +171,36 @@ function loadchat() {
         key = null
     }
     haslo = sanitizeHTML(document.getElementById('loadPass').value)
-    if(key!=null && haslo!=""){
+    if (key != null && haslo != "") {
         var json = '{"key":"' + key + '","savePasswd":"' + haslo + '"}'
-    jsonToSend = JSON.parse(json);
-    var xhr = new XMLHttpRequest();
-    var url = "/load_chat";
-    var respToReturn;
-    xhr.open("POST", url, true);
-    xhr.setRequestHeader("Content-Type", "application/json");
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            var json = JSON.parse(xhr.responseText);
-            console.log(json);
-            if (json['success']) {
-                for (var i = 0; i < json['messages'].length; i++) {
-                    var msg = json['messages'][i]['user'] + ':' + json['messages'][i]['text'];
-                    $('#chatWindow').html($('#chatWindow').html() + "<p " +
-                        "class='user1'" +
-                        " > <span>" +
-                        msg +
-                        "</span> </p>");
+        jsonToSend = JSON.parse(json);
+        var xhr = new XMLHttpRequest();
+        var url = "/load_chat";
+        var respToReturn;
+        xhr.open("POST", url, true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                var json = JSON.parse(xhr.responseText);
+                console.log(json);
+                if (json['success']) {
+                    for (var i = 0; i < json['messages'].length; i++) {
+                        var msg = json['messages'][i]['user'] + ':' + encryption(json['messages'][i]['text'], getCookie('key_encryption'));
+                        $('#chatWindow').html($('#chatWindow').html() + "<p " +
+                            "class='user1'" +
+                            " > <span>" +
+                            msg +
+                            "</span> </p>");
+                    }
+                } else {
+                    alert("Error occured, try again")
                 }
-            } else {
-                alert("Error occured, try again")
             }
-        }
-    };
-    var data = JSON.stringify(jsonToSend)
-    xhr.send(data);
-    }else{
-    alert("Pasword and/or key cannot be empty")
+        };
+        var data = JSON.stringify(jsonToSend)
+        xhr.send(data);
+    } else {
+        alert("Pasword and/or key cannot be empty")
     }
 }
 
@@ -224,28 +210,28 @@ function delchat() {
         key = null
     }
     haslo = sanitizeHTML(document.getElementById('delPass').value)
-    if (key!= null && haslo!=""){
+    if (key != null && haslo != "") {
         var json = '{"key":"' + key + '","savePasswd":"' + haslo + '"}'
-    jsonToSend = JSON.parse(json);
-    var xhr = new XMLHttpRequest();
-    var url = "/del_chat";
-    var respToReturn;
-    xhr.open("POST", url, true);
-    xhr.setRequestHeader("Content-Type", "application/json");
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            var json = JSON.parse(xhr.responseText);
-            console.log(json);
-            if (json['success']) {
-                alert("Your chat was deleted")
-            } else {
-                alert("Error occured, try again")
+        jsonToSend = JSON.parse(json);
+        var xhr = new XMLHttpRequest();
+        var url = "/del_chat";
+        var respToReturn;
+        xhr.open("POST", url, true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                var json = JSON.parse(xhr.responseText);
+                console.log(json);
+                if (json['success']) {
+                    alert("Your chat was deleted")
+                } else {
+                    alert("Error occured, try again")
+                }
             }
-        }
-    };
-    var data = JSON.stringify(jsonToSend)
-    xhr.send(data);
-    }else{
-    alert("Pasword and/or key cannot be empty")
+        };
+        var data = JSON.stringify(jsonToSend)
+        xhr.send(data);
+    } else {
+        alert("Pasword and/or key cannot be empty")
     }
 }

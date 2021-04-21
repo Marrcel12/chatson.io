@@ -25,18 +25,42 @@
         <div class="col-md-4">
             <div class="box box-warning direct-chat direct-chat-warning">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Chatson.io</h3>
-                    <button onclick="savechat()">Save chat</button>
-                    <button onclick="loadchat()">Load chat</button>
-                    <button onclick="delchat()">Delete chat</button>
+                    <h3 class="box-title" onclick="clickOnLogo()">Chatson.io</h3>
+                    <div id="openSaveMenu">
+                        <button id="save" onclick="showChatOptions()">
+                            <img src="{{ url_for('static', filename='img/save-regular.svg') }}">
+                        </button>
+                    </div>
+                </div>
+                <div id="chatOptions">
+                    <button onclick="showsavechat()">Save chat</button>
+                    <button onclick="showloadchat()">Load chat</button>
+                    <button onclick="showdelchat()">Delete chat</button>
+                </div>
+                <div id="saveChat">
+                    <input type="text" placeholder="Chat key (if You have one)" id="saveKey">
+                    <input type="text" placeholder="Your password" id="savePass">
+                    <button onclick="loadchat()">Save</button>
+                    <button onclick="closeWindows('save')">Cancel</button>
+                </div>
+                <div id="loadChat">
+                    <input type="text" placeholder="Chat key" id="loadKey">
+                    <input type="text" placeholder="Your password" id="loadPass">
+                    <button onclick="loadchat()">Load</button>
+                    <button onclick="closeWindows('load')">Cancel</button>
+                </div>
+                <div id="delChat">
+                    <input type="text" placeholder="Chat key" id="delKey">
+                    <input type="text" placeholder="Your password" id="delPass">
+                    <button onclick="delchat()">Delete</button>
+                    <button onclick="closeWindows('del')">Cancel</button>
                 </div>
                 <div class="box-body">
                     <div class="direct-chat-messages" id="chatWindow">
-                        
                     </div>
                 </div>
                 <div class="box-footer">
-                        <div class="input-group"> <input type="text" name="message" id="mess-input" placeholder="Type Message ..." class="form-control"> <span class="input-group-btn"> <button type="button" class="btn btn-warning btn-flat" id="mess-btn">Send</button> </span> </div>
+                    <div class="input-group"> <input type="text" name="message" id="mess-input" placeholder="Type Message ..." class="form-control"> <span class="input-group-btn"> <button type="button" class="btn btn-warning btn-flat" id="mess-btn">Send</button> </span> </div>
                 </div>
             </div>
         </div>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,18 +8,17 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/fonts.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/chat_new.css') }}">
     <link rel="shortcut icon" href="{{ url_for('static', filename='img/icon.png') }}">
-    <script
-      src="{{ url_for('static', filename='vendors/jquery351.js') }}"
-    ></script>
+    <script src="{{ url_for('static', filename='vendors/jquery351.js') }}"></script>
     <script src="{{ url_for('static', filename='vendors/crypto.js') }}"> </script>
     <script src="{{ url_for('static', filename='js/cookies.js') }}"></script>
 </head>
+
 <body>
     <nav>
         <div id="user">{{ name }}</div>
         <div id="key">
             <div>
-                   Room ID: <span class="hidden blur" style="margin-right: 20px">{{room}}</span>
+                Room ID: <span class="hidden blur" style="margin-right: 20px">{{room}}</span>
                 Key: <input type="text" id="roomKey" class="hidden blur" placeholder="Enter Your Key">
                 <button id="send_key" class="hidden blur">Save</button>
             </div>
@@ -56,12 +56,13 @@
         <div id="chat">
             <div id="chatWindow">
             </div>
-                <input type="text" name="chat_mess" id="chatMess" placeholder="Your Message"> 
+            <input type="text" name="chat_mess" id="chatMess" placeholder="Your Message">
             <button onmouseover="checkIfEncryptionKey()" onmousedown="sanitizeForm()" id="sendmess">Send</button>
         </div>
     </div>
     <script type="text/javascript" src="//code.jquery.com/jquery-1.4.2.min.js"></script>
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.1.3/socket.io.min.js"></script>
-            <script src="{{ url_for('static', filename='js/chat.js') }}"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.1.3/socket.io.min.js"></script>
+    <script src="{{ url_for('static', filename='js/chat.js') }}"></script>
 </body>
+
 </html>
