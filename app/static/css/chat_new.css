@@ -133,8 +133,8 @@ button {
     position: relative;
     top: 2px;
 }
-#chatOptions{
-    position: relative;
+#chatOptions, #saveChat, #loadChat, #delChat{
+    position: absolute;
     top:0;
         background-color: #3993ff;
         color: white;
@@ -147,10 +147,13 @@ button {
     z-index: 9;
     transition: .3s linear;
 }
-#chatOptions.shown{
+#saveChat, #loadChat, #delChat{
+    grid-template-columns: 25% 25% 25% 25%;
+}
+#chatOptions.shown, #saveChat.shown, #loadChat.shown, #delChat.shown{
             top: 63px;
 }
-#chatOptions button{
+#chatOptions button, #saveChat button, #loadChat button, #delChat button{
     width: 100px;
     height: 30px;
     margin: 0 auto;

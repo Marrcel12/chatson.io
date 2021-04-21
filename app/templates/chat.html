@@ -30,9 +30,27 @@
         </div>
     </nav>
     <div id="chatOptions">
-        <button onclick="savechat()">Save chat</button>
-        <button onclick="loadchat()">Load chat</button>
-        <button onclick="delchat()">Delete chat</button>
+        <button onclick="showsavechat()">Save chat</button>
+        <button onclick="showloadchat()">Load chat</button>
+        <button onclick="showdelchat()">Delete chat</button>
+    </div>
+    <div id="saveChat">
+        <button onclick="closeWindows('save')">Cancel</button>
+        <input type="text" placeholder="Chat key (if You have one)" id="saveKey">
+        <input type="text" placeholder="Your password" id="savePass">
+        <button onclick="loadchat()">Save</button>
+    </div>
+    <div id="loadChat">
+        <button onclick="closeWindows('load')">Cancel</button>
+        <input type="text" placeholder="Chat key" id="loadKey">
+        <input type="text" placeholder="Your password" id="loadPass">
+        <button onclick="loadchat()">Load</button>
+    </div>
+    <div id="delChat">
+        <button onclick="closeWindows('del')">Cancel</button>
+        <input type="text" placeholder="Chat key" id="delKey">
+        <input type="text" placeholder="Your password" id="delPass">
+        <button onclick="delchat()">Delete</button>
     </div>
     <div id="chatSection">
         <div id="chat">

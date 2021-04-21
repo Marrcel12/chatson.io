@@ -28,10 +28,34 @@ function showChatOptions() {
         } else {
             document.getElementById('save').classList.remove('toggled')
             document.getElementById('chatOptions').classList.remove('shown')
-        
+            document.getElementById('saveChat').classList.remove('shown')
+            document.getElementById('loadChat').classList.remove('shown')
+            document.getElementById('delChat').classList.remove('shown')
     }
 }
-
+function showsavechat() {
+            document.getElementById('chatOptions').classList.remove('shown')
+            document.getElementById('saveChat').classList.add('shown')
+}
+function showloadchat() {
+            document.getElementById('chatOptions').classList.remove('shown')
+            document.getElementById('loadChat').classList.add('shown')
+}
+function showdelchat() {
+            document.getElementById('chatOptions').classList.remove('shown')
+            document.getElementById('delChat').classList.add('shown')
+}
+function closeWindows(toClose) {
+    if(toClose == "save"){
+        document.getElementById('saveChat').classList.remove('shown')
+    }else if(toClose == "load"){
+        document.getElementById('loadChat').classList.remove('shown')
+    }else if(toClose == "del"){
+        document.getElementById('delChat').classList.remove('shown')
+    }
+        document.getElementById('chatOptions').classList.add('shown')
+            
+}
 function checkIfEncryptionKey() {
     if (document.getElementById('roomKey').value == "") {
         alert('Please enter room key before sending message')
@@ -115,12 +139,13 @@ function sanitizeForm() {
 }
 
 function savechat() {
-    key = prompt("Podaj swój klucz, jeśli nie masz, zostaw puste")
+    key = sanitizeHTML(document.getElementById('saveKey').value)
     if (key == "") {
         key = null
     }
-    haslo = prompt('Utwórz hasło czatu')
-    var json = '{"key":"' + key + '","savePasswd":"' + haslo + '","messages":['
+    haslo = sanitizeHTML(document.getElementById('savePass').value)
+    if(haslo != ""){
+        var json = '{"key":"' + key + '","savePasswd":"' + haslo + '","messages":['
     var messages = document.getElementsByClassName('user1')
     for (i = 0; i < messages.length; i++) {
         var currentMess = messages[i].innerText;
@@ -141,23 +166,27 @@ function savechat() {
             var json = JSON.parse(xhr.responseText);
             console.log(json['success']);
             if (json['success']) {
-                alert("Zapis się powiódł, twoje dane to Klucz: " + json['key'] + " Hasło: " + haslo)
+                alert("Save successful, Your key: " + json['key'] + " password: " + haslo)
             } else {
-                alert("Wystąpił błąd, spróbuj ponownie")
+                alert("Error occured, try again")
             }
         }
     };
     var data = JSON.stringify(jsonToSend)
     xhr.send(data);
+    }else{
+        alert("Password cannot be empty")
+    }
 }
 
 function loadchat() {
-    key = prompt("Podaj swój klucz")
+    key = sanitizeHTML(document.getElementById('loadKey').value)
     if (key == "") {
         key = null
     }
-    haslo = prompt('Podaj hasło')
-    var json = '{"key":"' + key + '","savePasswd":"' + haslo + '"}'
+    haslo = sanitizeHTML(document.getElementById('loadPass').value)
+    if(key!=null && haslo!=""){
+        var json = '{"key":"' + key + '","savePasswd":"' + haslo + '"}'
     jsonToSend = JSON.parse(json);
     var xhr = new XMLHttpRequest();
     var url = "/load_chat";
@@ -178,21 +207,25 @@ function loadchat() {
                         "</span> </p>");
                 }
             } else {
-                alert("Wystąpił błąd, spróbuj ponownie")
+                alert("Error occured, try again")
             }
         }
     };
     var data = JSON.stringify(jsonToSend)
     xhr.send(data);
+    }else{
+    alert("Pasword and/or key cannot be empty")
+    }
 }
 
 function delchat() {
-    key = prompt("Podaj swój klucz")
+    key = sanitizeHTML(document.getElementById('delKey').value)
     if (key == "") {
         key = null
     }
-    haslo = prompt('Podaj hasło')
-    var json = '{"key":"' + key + '","savePasswd":"' + haslo + '"}'
+    haslo = sanitizeHTML(document.getElementById('delPass').value)
+    if (key!= null && haslo!=""){
+        var json = '{"key":"' + key + '","savePasswd":"' + haslo + '"}'
     jsonToSend = JSON.parse(json);
     var xhr = new XMLHttpRequest();
     var url = "/del_chat";
@@ -204,12 +237,15 @@ function delchat() {
             var json = JSON.parse(xhr.responseText);
             console.log(json);
             if (json['success']) {
-                alert("Rozmowa została usunięta, jest bezpiecznie")
+                alert("Your chat was deleted")
             } else {
-                alert("Wystąpił błąd, spróbuj ponownie")
+                alert("Error occured, try again")
             }
         }
     };
     var data = JSON.stringify(jsonToSend)
     xhr.send(data);
+    }else{
+    alert("Pasword and/or key cannot be empty")
+    }
 }
