@@ -4,6 +4,19 @@ var sanitizeHTML = function (str) {
     return temp.innerHTML;
 };
 
+function toggleBlur() {
+    hidELem = document.getElementsByClassName('hidden');
+    for (i = 0; i < 3; i++) {
+        if (hidELem[i].classList[1] == "blur") {
+            hidELem[i].classList.remove('blur')
+            document.getElementById('show').classList.add('toggled')
+        } else {
+            hidELem[i].classList.add('blur')
+            document.getElementById('show').classList.remove('toggled')
+        }
+    }
+}
+
 function showChatOptions() {
     if (document.getElementById('save').classList[0] != 'toggled') {
         document.getElementById('save').classList.add('toggled')
