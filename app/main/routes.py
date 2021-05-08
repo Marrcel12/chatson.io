@@ -46,7 +46,7 @@ def load_chat():
     key = data["key"]
     result = dbFunctions.load_chat_database(key, data["savePasswd"])
     return jsonify({"success": result[0], "messages": result[1]})
-# TODO: DELfrom database
+# TODO: Delfrom database
 
 
 @main.route('/del_chat', methods=['POST'])

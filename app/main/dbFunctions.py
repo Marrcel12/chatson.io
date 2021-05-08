@@ -7,7 +7,7 @@ def rooms_id_generator(size=1, chars=string.ascii_uppercase + string.digits):
     return ''.join(random.choice(chars) for _ in range(size))
 
 def check_if_id_not_in_base(id):
-    conn = psycopg2.connect(connectionString.connString)
+    conn = psycopg2.connect(connectionString.connString,port=6432)
     c = conn.cursor()
     c.execute(
         "SELECT key FROM chat_creds  where  key=%s;", (id,))
@@ -30,7 +30,7 @@ def pre_gen(number_of_characters):
 
 
 def check_creditional(key, password):
-    conn2 = psycopg2.connect(connectionString.connString)
+    conn2 = psycopg2.connect(connectionString.connString,port=6432)
     c2 = conn2.cursor()
     c2.execute(
         "SELECT key FROM chat_creds where save_passwd=%s and key=%s;", (password, key))
@@ -42,7 +42,7 @@ def check_creditional(key, password):
 
 
 def save_chat_database(data, new_key):
-    conn = psycopg2.connect(connectionString.connString)
+    conn = psycopg2.connect(connectionString.connString,port=6432)
     c = conn.cursor()
     key = data["key"]
     password = data["savePasswd"]
@@ -63,7 +63,7 @@ def save_chat_database(data, new_key):
 
 
 def load_chat_database(key, password):
-    conn = psycopg2.connect(connectionString.connString)
+    conn = psycopg2.connect(connectionString.connString,port=6432)
     c = conn.cursor()
     if not(check_creditional(key, password)):
         return [False, []]
@@ -80,7 +80,7 @@ def load_chat_database(key, password):
 
 
 def del_chat_database(key, password):
-    conn = psycopg2.connect(connectionString.connString)
+    conn = psycopg2.connect(connectionString.connString,port=6432)
     c = conn.cursor()
     if not(check_creditional(key, password)):
         return False

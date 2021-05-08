@@ -54,40 +54,52 @@
                     To which no one has access except people who know the room id and the encryption key</div>
             </div>
             <div class="step">
+                <div class="stepTitle">Invite your friend</div>
+                <div class="stepDetails">To chat with another person completely anonymously, 
+                    enter the same room id and then the same encryption key.
+                    Additionally, we recommend using a VPN and connecting from trusted networks and do not save cookies to avoid other hacker attacks.
+                    Good practise is using our service through VPN and in incognito mode.</div>
+            </div>
+            <div class="step">
                 <div class="stepTitle">First protection</div>
                 <div class="stepDetails">
                     In the first step you have to choose or create/enter your own conversation room id. 
-                    It is saved on our servers and encrypted. 
-                    It allows another person to join the conversation.</div>
+                    We use it to connect you with another person with the same key.
+                    If you lost key, you will lost your conversation, also If someone steals your access key, 
+                    she/he will only have to guess the encryption key, 
+                    which will make it much easier to access your data.
+                    <br>
+                    <br>Remeber to keep both keys safe and make them complex and hard to guess!</br>
+                    </div>
             </div>
             <div class="step">
-                <div class="stepTitle">You get assigned to one of the rooms</div>
+                <div class="stepTitle">You are connect with another person</div>
                 <div class="stepDetails">That's where we're gettin' started. 
-                    After entering room_id, you will be joined to the room where in the top right corner 
-                    you have to enter the message encryption key. This is key <b>is not saved </b>on the server. 
+                    After entering room id, you will join to the room. In the top right corner 
+                    you have to enter the message encryption key. This key <b>is not saved </b>on the server. 
+                    You keep it in your clien side.
                     After sending the message, the server receives an already encrypted message by your key. 
-                    Which is additionally encrypt with our key.
-
+                    So none even us cannot read it without key.
                 </div>
             </div>
             <div class="step">
-                <div class="stepTitle">Invite your friend</div>
-                <div class="stepDetails">To chat with another person completely anonymously, 
-                    enter the same room id and then the same encryption code.
-                    Additionally, we recommend using a VPN and connecting from trusted networks to avoid other hacker attacks.</div>
-            </div>
-            <div class="step">
-                <div class="stepTitle">We keep your chats private</div>
-                <div class="stepDetails">We do not collect any logs, about who connects to our server,
-                     and the encrypted chat that is stored with us on the server is worth nothing without user encryption keys.</div>
+                <div class="stepTitle">Save converstion</div>
+                <div class="stepDetails">                 
+                    If you decide to save your conversation we are going to save it in our safe databse. 
+                    All data is encrypted with your key and after it additionally encrypt with our key. 
+                    Saved chat are linked only with your room code and encryption key. <b>We do not save any information such as IPs or other identification data </b> 
+                </div>
             </div>
             <div class="step">
                 <div class="stepTitle">You are safe</div>
-                <div class="stepDetails">If a leak occurs or our server has been hijacked, 
-                    your chats are securely encrypted and impossible to read without your key.
-                    The ciphers we use are approved and used by the NSA to protect top secret data. 
-                    So if your encryption code is not hijacked from your computer or disclosed to an inappropriate person, you are completely safe.</div>
-            </div>
+                <div class="stepDetails">We do not collect any logs, about who connects to our server,
+                     and the encrypted chat that is stored with us on the server is worth nothing without user encryption keys.
+                     If a leak occurs or our server has been hijacked, 
+                     your chats are securely encrypted and impossible to read without your key.
+                     The ciphers we use are approved and used by the NSA to protect top secret data.
+                     So if your encryption code is not hijacked from your computer or disclosed to an inappropriate person, you are completely safe.
+                    </div>
+
         </div>
     </section>
     <section id="about">
@@ -96,6 +108,7 @@
             We want the project to be always free and do not require any logging and profilng, so we decided that we are offering advertising on our site in baner section (write to us about this at mail@naprotonmmail) and for voluntary support on:</p>
         <form action="">
             <h2>Contact us</h2>
+            <p>Be aware that this form is oparated by form spree to avoid spam. If you would like to be more anonymous, write an mail</p>
             <input type="text" name="name" placeholder="Your name">
             <input type="email" name="replyTo" placeholder="Your e-mail address (required)" required>
             <input type="text" name="subject" placeholder="Subject (required)" required>
@@ -103,7 +116,7 @@
             <button type="submit">Send!</button>
         </form>
     </section>
-    <footer>&copy;2020-2021 | Made with &hearts; by <img src="{{ url_for('static', filename='img/malogoFooterWhite.png') }}" alt="M&A"> <i><a href="sss" style="text-decoration: none; font-size: smaller; color:white;">Privacy and information</a> </i>  
+    <footer>&copy;2020-2021 | Made with &hearts; by <img src="{{ url_for('static', filename='img/malogoFooterWhite.png') }}" alt="M&A"> <i><a href="{{ url_for('static', filename='legal/policy.pdf') }}" style="text-decoration: none; font-size: smaller; color:white;">Informations</a> </i>  
     </footer>
     <script src="{{ url_for('static', filename='vendors/jquery351.js') }}"></script>
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>

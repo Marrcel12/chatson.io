@@ -130,7 +130,9 @@ header h1 {
     color: #3993FF;
     text-align: center;
 }
-
+.stepDetails{
+    text-align: justify;
+}
 #howDoesItWork h2 {
     margin: 100px 0 0 0;
     font-size: 30px;

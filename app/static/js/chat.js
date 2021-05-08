@@ -92,6 +92,7 @@ $("#send_key").click(function () {
     document.getElementById('roomKey').value = sanitizeHTML(document.getElementById('roomKey').value);
     setCookie("key_encryption", $("#roomKey").val(), 2);
     $("#roomKey").val(getCookie("key_encryption"));
+    
 });
 // send and refresh chat
 var socket;
@@ -118,15 +119,19 @@ $(document).ready(function () {
         $('#chatWindow').scrollTop($('#chatWindow')[0].scrollHeight);
     });
     $('#sendmess').click(function () {
+        
         text = $('#chatMess').val();
         $('#chatMess').val('');
+        console.log(text);
         socket.emit('text', {
             msg: text
         });
+        
     });
 });
 
 function decryptMess() {
+    
     mess = $('.user1')[$('.user1').length - 1];
     toDecrypt = mess.children[0].innerText.slice(mess.children[0].innerText.indexOf(':') + 1, mess.children[0].innerText.length)
     mess.children[0].innerText = decryption(toDecrypt, getCookie("key_encryption")).toString()
@@ -135,6 +140,7 @@ function decryptMess() {
 function sanitizeForm() {
     encrypted = encryption(sanitizeHTML(document.getElementById('chatMess').value), getCookie("key_encryption"))
     document.getElementById('chatMess').value = encrypted;
+   
 }
 
 function savechat() {
