@@ -1,3 +1,12 @@
+function openSweetDialog(content){
+    document.getElementById('sweetDialogText').innerHTML = content;
+    document.getElementById('sweetDialog').style.display = 'block';
+}
+function closeSweetDialog(){
+     document.getElementById('sweetDialogText').innerHTML = "";
+    document.getElementById('sweetDialog').style.display = 'none';
+}
+
 var sanitizeHTML = function (str) {
     var temp = document.createElement('div');
     temp.textContent = str;
@@ -58,7 +67,7 @@ function closeWindows(toClose) {
 
 function checkIfEncryptionKey() {
     if (document.getElementById('roomKey').value == "") {
-        alert('Please enter room key before sending message')
+        openSweetDialog('Please enter room key before sending message')
     }
 }
 
@@ -169,18 +178,20 @@ function savechat() {
         xhr.onreadystatechange = function () {
             if (xhr.readyState === 4 && xhr.status === 200) {
                 var json = JSON.parse(xhr.responseText);
-                console.log(json['success']);
                 if (json['success']) {
-                    alert("Save successful, Your key: " + json['key'] + " password: " + haslo)
+                    openSweetDialog("Save successful, Your key: " + json['key'] + " password: " + haslo)
                 } else {
-                    alert("Error occured, try again")
+                    openSweetDialog("Error occured, try again")
                 }
             }
         };
         var data = JSON.stringify(jsonToSend)
         xhr.send(data);
+        showChatOptions()
+        document.getElementById('saveKey').value="";
+        document.getElementById('savePass').value = "";
     } else {
-        alert("Password cannot be empty")
+        openSweetDialog("Password cannot be empty")
     }
 }
 
@@ -201,7 +212,6 @@ function loadchat() {
         xhr.onreadystatechange = function () {
             if (xhr.readyState === 4 && xhr.status === 200) {
                 var json = JSON.parse(xhr.responseText);
-                console.log(json);
                 if (json['success']) {
                     for (var i = 0; i < json['messages'].length; i++) {
                         var msg = json['messages'][i]['user'] + ':' + encryption(json['messages'][i]['text'], getCookie('key_encryption'));
@@ -211,15 +221,19 @@ function loadchat() {
                             msg +
                             "</span> </p>");
                     }
+                    
                 } else {
-                    alert("Error occured, try again")
+                    openSweetDialog("Error occured, try again")
                 }
             }
         };
         var data = JSON.stringify(jsonToSend)
         xhr.send(data);
+        showChatOptions()
+        document.getElementById('loadKey').value="";
+        document.getElementById('loadPass').value = "";
     } else {
-        alert("Pasword and/or key cannot be empty")
+        openSweetDialog("Pasword and/or key cannot be empty")
     }
 }
 
@@ -240,17 +254,19 @@ function delchat() {
         xhr.onreadystatechange = function () {
             if (xhr.readyState === 4 && xhr.status === 200) {
                 var json = JSON.parse(xhr.responseText);
-                console.log(json);
                 if (json['success']) {
-                    alert("Your chat was deleted")
+                    openSweetDialog("Your chat was deleted")
                 } else {
-                    alert("Error occured, try again")
+                    openSweetDialog("Error occured, try again")
                 }
             }
         };
         var data = JSON.stringify(jsonToSend)
         xhr.send(data);
+        showChatOptions()
+        document.getElementById('delKey').value="";
+        document.getElementById('delPass').value = "";
     } else {
-        alert("Pasword and/or key cannot be empty")
+        openSweetDialog("Pasword and/or key cannot be empty")
     }
 }

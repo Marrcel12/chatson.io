@@ -14,6 +14,13 @@
 </head>
 
 <body>
+   <div id="sweetDialog">
+       <div id="sweetDialogContent">
+           <p id="sweetDialogText">
+           </p>
+           <button onclick="closeSweetDialog()">OK</button>
+       </div>
+   </div>
     <nav>
         <div id="user">{{ name }}</div>
         <div id="key">
@@ -38,7 +45,7 @@
         <button onclick="closeWindows('save')">Cancel</button>
         <input type="text" placeholder="Chat key (if You have one)" id="saveKey">
         <input type="text" placeholder="Your password" id="savePass">
-        <button onclick="loadchat()">Save</button>
+        <button onclick="savechat()">Save</button>
     </div>
     <div id="loadChat">
         <button onclick="closeWindows('load')">Cancel</button>

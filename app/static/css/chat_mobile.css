@@ -104,7 +104,7 @@ body {
     border-bottom-left-radius: 0;
     position: relative;
     overflow-x: hidden;
-    padding: 0
+    padding: 0;
 }
 
 .box-body {
@@ -215,7 +215,7 @@ body {
     height: 24px;
     border-radius: 5px;
     outline: none;
-    width: calc(95vw - 30px);
+    width: calc(95vw - 50px);
 }
 
 #mess-btn {
@@ -291,4 +291,35 @@ body {
 
 .shown {
     display: block !important;
+}
+#sweetDialog{
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0,0,0,.7);
+    position: fixed;
+    z-index: 20;
+    top: 0;
+    display: none;
+}
+#sweetDialogContent{
+    position: relative;
+    margin: 0 auto;
+    width: 90vw;
+    text-align: center;
+    padding: 20px;
+    border: 2px solid #3993ff;
+    background-color: white;
+    border-radius: 10px;
+    top: 40vh;
+}
+#sweetDialogContent p{
+    font-weight: bold;
+    color:#3993ff;
+}
+#sweetDialogContent button{
+    border-radius: 10px;
+    border: 2px solid #3993ff;
+    font-weight: bold;
+    color:#3993ff;
+    cursor: pointer;
 }

@@ -1,9 +1,18 @@
+function openSweetDialog(content){
+    document.getElementById('sweetDialogText').innerHTML = content;
+    document.getElementById('sweetDialog').style.display = 'block';
+}
+function closeSweetDialog(){
+     document.getElementById('sweetDialogText').innerHTML = "";
+    document.getElementById('sweetDialog').style.display = 'none';
+}
+
 function submitEncryption() {
     if (document.getElementById('encoding').value != '') {
         document.getElementById('init-input').style.display = 'none';
         sendRoomKey()
     } else {
-        alert("Please enter key");
+        openSweetDialog("Please enter key");
     };
 };
 var sanitizeHTML = function (str) {
@@ -78,7 +87,7 @@ $(document).ready(function () {
         socket.emit('joined', {});
     });
     socket.on('status', function (data) {
-        $('#chatWindow').html($('#chatWindow').html() + '<div class="direct-chat-msg"><div class="direct-chat-info clearfix"> <span class="direct-chat-name pull-left">Alert</span> </div> <div class="direct-chat-text"> ' + data.msg + ' </div></div>');
+        $('#chatWindow').html($('#chatWindow').html() + '<div class="direct-chat-msg"><div class="direct-chat-info clearfix"> <span class="direct-chat-name pull-left">alert</span> </div> <div class="direct-chat-text"> ' + data.msg + ' </div></div>');
         $('#chatWindow').scrollTop($('#chatWindow')[0].scrollHeight);
     });
     socket.on('message', function (data) {
@@ -136,16 +145,19 @@ function savechat() {
                 var json = JSON.parse(xhr.responseText);
                 console.log(json['success']);
                 if (json['success']) {
-                    alert("Zapis się powiódł, twoje dane to Klucz: " + json['key'] + " Hasło: " + haslo)
+                    openSweetDialog("Zapis się powiódł, twoje dane to Klucz: " + json['key'] + " Hasło: " + haslo)
                 } else {
-                    alert("Wystąpił błąd, spróbuj ponownie")
+                    openSweetDialog("Wystąpił błąd, spróbuj ponownie")
                 }
             }
         };
         var data = JSON.stringify(jsonToSend)
         xhr.send(data);
+        showChatOptions()
+        document.getElementById('saveKey').value="";
+        document.getElementById('savePass').value = "";
     } else {
-        alert("Password cannot be empty")
+        openSweetDialog("Password cannot be empty")
     }
 }
 
@@ -172,14 +184,17 @@ function loadchat() {
                         $('#chatWindow').html($('#chatWindow').html() + '<div class="direct-chat-msg right"> <div class="direct-chat-info clearfix"> <span class="direct-chat-name pull-right userName">' + json['messages'][i]['user'] + '</span> </div> <div class="direct-chat-text message"> ' + decryption(json['messages'][i]['text'], getCookie("key_encryption")) + ' </div></div>');
                     }
                 } else {
-                    alert("Wystąpił błąd, spróbuj ponownie")
+                    openSweetDialog("Wystąpił błąd, spróbuj ponownie")
                 }
             }
         };
         var data = JSON.stringify(jsonToSend)
         xhr.send(data);
+        showChatOptions()
+        document.getElementById('loadKey').value="";
+        document.getElementById('loadPass').value = "";
     } else {
-        alert("Pasword and/or key cannot be empty")
+        openSweetDialog("Pasword and/or key cannot be empty")
     }
 }
 
@@ -202,15 +217,18 @@ function delchat() {
                 var json = JSON.parse(xhr.responseText);
                 console.log(json);
                 if (json['success']) {
-                    alert("Rozmowa została usunięta, jest bezpiecznie")
+                    openSweetDialog("Rozmowa została usunięta, jest bezpiecznie")
                 } else {
-                    alert("Wystąpił błąd, spróbuj ponownie")
+                    openSweetDialog("Wystąpił błąd, spróbuj ponownie")
                 }
             }
         };
         var data = JSON.stringify(jsonToSend)
         xhr.send(data);
+        showChatOptions()
+        document.getElementById('delKey').value="";
+        document.getElementById('delPass').value = "";
     } else {
-        alert("Pasword and/or key cannot be empty")
+        openSweetDialog("Pasword and/or key cannot be empty")
     }
 }

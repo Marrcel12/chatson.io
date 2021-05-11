@@ -86,7 +86,7 @@ button {
 }
 
 #chatWindow p {
-    margin-bottom: 5vh;
+    margin-bottom: 50px;
 }
 
 #chatWindow .user1 span {
@@ -126,7 +126,9 @@ button {
     filter: invert(1);
     width: 16px;
 }
-
+.toggled img{
+    filter: hue-rotate(10deg)!important;
+}
 #save {
     width: 41px;
     transition: .2s linear;
@@ -242,4 +244,35 @@ button {
         color: #3993ff !important;
         background-color: white !important;
     }
+}
+#sweetDialog{
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0,0,0,.7);
+    position: fixed;
+    z-index: 20;
+    top: 0;
+    display: none;
+}
+#sweetDialogContent{
+    position: relative;
+    margin: 0 auto;
+    width: 40vw;
+    text-align: center;
+    padding: 20px;
+    border: 2px solid #3993ff;
+    background-color: white;
+    border-radius: 10px;
+    top: 40vh;
+}
+#sweetDialogContent p{
+    font-weight: bold;
+    color:#3993ff;
+}
+#sweetDialogContent button{
+    border-radius: 10px;
+    border: 2px solid #3993ff;
+    font-weight: bold;
+    color:#3993ff;
+    cursor: pointer;
 }
