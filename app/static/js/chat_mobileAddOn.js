@@ -87,13 +87,20 @@ $(document).ready(function () {
         socket.emit('joined', {});
     });
     socket.on('status', function (data) {
-        $('#chatWindow').html($('#chatWindow').html() + '<div class="direct-chat-msg"><div class="direct-chat-info clearfix"> <span class="direct-chat-name pull-left">alert</span> </div> <div class="direct-chat-text"> ' + data.msg + ' </div></div>');
+        $('#chatWindow').html($('#chatWindow').html() + '<div class="direct-chat-msg right"><div class="direct-chat-info clearfix"> <span class="direct-chat-name pull-left">alert</span> </div> <div class="direct-chat-text"> ' + data.msg + ' </div></div>');
         $('#chatWindow').scrollTop($('#chatWindow')[0].scrollHeight);
     });
     socket.on('message', function (data) {
-        $('#chatWindow').html($('#chatWindow').html() + '<div class="direct-chat-msg right"> <div class="direct-chat-info clearfix"> <span class="direct-chat-name pull-right userName">' + data.msg.slice(0, data.msg.indexOf(':')) + '</span> </div> <div class="direct-chat-text message"> ' + data.msg.slice(data.msg.indexOf(':') + 1, data.msg.length) + ' </div></div>');
-        $('#chatWindow').scrollTop($('#chatWindow')[0].scrollHeight);
-        decryptMess();
+        if(data.msg.slice(0, data.msg.indexOf(':')) == document.getElementById('name').innerHTML){
+            $('#chatWindow').html($('#chatWindow').html() + '<div class="direct-chat-msg"> <div class="direct-chat-info clearfix"> <span class="direct-chat-name pull-right userName">' + data.msg.slice(0, data.msg.indexOf(':')) + '</span> </div> <div class="direct-chat-text message"> ' + data.msg.slice(data.msg.indexOf(':') + 1, data.msg.length) + ' </div></div>');
+            $('#chatWindow').scrollTop($('#chatWindow')[0].scrollHeight);
+            decryptMess();
+        }else{
+            $('#chatWindow').html($('#chatWindow').html() + '<div class="direct-chat-msg right"> <div class="direct-chat-info clearfix"> <span class="direct-chat-name pull-right userName">' + data.msg.slice(0, data.msg.indexOf(':')) + '</span> </div> <div class="direct-chat-text message"> ' + data.msg.slice(data.msg.indexOf(':') + 1, data.msg.length) + ' </div></div>');
+            $('#chatWindow').scrollTop($('#chatWindow')[0].scrollHeight);
+            decryptMess();
+        }
+        
     });
     $('#mess-btn').click(function () {
         sanitizeForm();
@@ -145,9 +152,9 @@ function savechat() {
                 var json = JSON.parse(xhr.responseText);
                 console.log(json['success']);
                 if (json['success']) {
-                    openSweetDialog("Zapis się powiódł, twoje dane to Klucz: " + json['key'] + " Hasło: " + haslo)
+                    openSweetDialog("Save successful, Your key: " + json['key'])
                 } else {
-                    openSweetDialog("Wystąpił błąd, spróbuj ponownie")
+                    openSweetDialog("An error occured, try again")
                 }
             }
         };
@@ -181,10 +188,16 @@ function loadchat() {
                 console.log(json);
                 if (json['success']) {
                     for (var i = 0; i < json['messages'].length; i++) {
-                        $('#chatWindow').html($('#chatWindow').html() + '<div class="direct-chat-msg right"> <div class="direct-chat-info clearfix"> <span class="direct-chat-name pull-right userName">' + json['messages'][i]['user'] + '</span> </div> <div class="direct-chat-text message"> ' + decryption(json['messages'][i]['text'], getCookie("key_encryption")) + ' </div></div>');
+                        if(json['messages'][i]['user'] == document.getElementById('name').innerHTML){
+                            $('#chatWindow').html($('#chatWindow').html() + '<div class="direct-chat-msg"> <div class="direct-chat-info clearfix"> <span class="direct-chat-name pull-right userName">' + json['messages'][i]['user'] + '</span> </div> <div class="direct-chat-text message"> ' + decryption(json['messages'][i]['text'], getCookie("key_encryption")) + ' </div></div>');
+                        }else{
+                            $('#chatWindow').html($('#chatWindow').html() + '<div class="direct-chat-msg right"> <div class="direct-chat-info clearfix"> <span class="direct-chat-name pull-right userName">' + json['messages'][i]['user'] + '</span> </div> <div class="direct-chat-text message"> ' + decryption(json['messages'][i]['text'], getCookie("key_encryption")) + ' </div></div>');
+                        }
+                        
                     }
+                    openSweetDialog("Load successful")
                 } else {
-                    openSweetDialog("Wystąpił błąd, spróbuj ponownie")
+                    openSweetDialog("An error occured, try again")
                 }
             }
         };
@@ -217,9 +230,9 @@ function delchat() {
                 var json = JSON.parse(xhr.responseText);
                 console.log(json);
                 if (json['success']) {
-                    openSweetDialog("Rozmowa została usunięta, jest bezpiecznie")
+                    openSweetDialog("Save successfully deleted")
                 } else {
-                    openSweetDialog("Wystąpił błąd, spróbuj ponownie")
+                    openSweetDialog("An error occured, try again")
                 }
             }
         };

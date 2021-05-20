@@ -98,6 +98,7 @@ function decryption(mess_ecrypted, key) {
 $("#roomKey").val(getCookie("key_encryption"));
 // new key for encryption
 $("#send_key").click(function () {
+    openSweetDialog('Key saved!')
     document.getElementById('roomKey').value = sanitizeHTML(document.getElementById('roomKey').value);
     setCookie("key_encryption", $("#roomKey").val(), 2);
     $("#roomKey").val(getCookie("key_encryption"));
@@ -112,24 +113,33 @@ $(document).ready(function () {
     });
     socket.on('status', function (data) {
         $('#chatWindow').html($('#chatWindow').html() + "<p " +
-            "class='user2'" +
+            "class='user1'" +
             " > <span>" +
             data.msg +
             "</span> </p>");
         $('#chatWindow').scrollTop($('#chatWindow')[0].scrollHeight);
     });
     socket.on('message', function (data) {
-        $('#chatWindow').html($('#chatWindow').html() + "<p " +
-            "class='user1'" +
+        if(data.msg.slice(0, data.msg.indexOf(':')) == document.getElementById('user').innerHTML){
+            $('#chatWindow').html($('#chatWindow').html() + "<p " +
+            "class='chatMessage user2'" +
             " > <span>" +
             data.msg +
             "</span> </p>");
+        }else{
+              $('#chatWindow').html($('#chatWindow').html() + "<p " +
+            "class='chatMessage user1'" +
+            " > <span>" +
+            data.msg +
+            "</span> </p>");
+              }
+        
         decryptMess()
         $('#chatWindow').scrollTop($('#chatWindow')[0].scrollHeight);
     });
     $('#sendmess').click(function () {
         
-        text = $('#chatMess').val();
+        text =$('#chatMess').val();
         $('#chatMess').val('');
         console.log(text);
         socket.emit('text', {
@@ -141,9 +151,9 @@ $(document).ready(function () {
 
 function decryptMess() {
     
-    mess = $('.user1')[$('.user1').length - 1];
+    mess = $('.chatMessage')[$('.chatMessage').length - 1];
     toDecrypt = mess.children[0].innerText.slice(mess.children[0].innerText.indexOf(':') + 1, mess.children[0].innerText.length)
-    mess.children[0].innerText = decryption(toDecrypt, getCookie("key_encryption")).toString()
+    mess.children[0].innerText = mess.children[0].innerText.slice(0, mess.children[0].innerText.indexOf(':')+1)+decryption(toDecrypt, getCookie("key_encryption")).toString()
 }
 
 function sanitizeForm() {
@@ -160,10 +170,10 @@ function savechat() {
     haslo = sanitizeHTML(document.getElementById('savePass').value)
     if (haslo != "") {
         var json = '{"key":"' + key + '","savePasswd":"' + haslo + '","messages":['
-        var messages = document.getElementsByClassName('user1')
+        var messages = document.getElementsByClassName('chatMessage')
         for (i = 0; i < messages.length; i++) {
             var currentMess = messages[i].innerText;
-            json += '{"user": "' + currentMess.slice(0, currentMess.indexOf(':')) + '", "text":"' + encryption(currentMess.slice(currentMess.indexOf(':') + 1, currentMess.length - 1), getCookie('key_encryption')) + '"}'
+            json += '{"user": "' + currentMess.slice(0, currentMess.indexOf(':')) + '", "text":"' + encryption(currentMess.slice(currentMess.indexOf(':') + 1, currentMess.length), getCookie('key_encryption')) + '"}'
             if (i != messages.length - 1) {
                 json += ","
             }
@@ -179,9 +189,9 @@ function savechat() {
             if (xhr.readyState === 4 && xhr.status === 200) {
                 var json = JSON.parse(xhr.responseText);
                 if (json['success']) {
-                    openSweetDialog("Save successful, Your key: " + json['key'] + " password: " + haslo)
+                    openSweetDialog("Save successful, Your key: " + json['key'])
                 } else {
-                    openSweetDialog("Error occured, try again")
+                    openSweetDialog("An error occured, try again")
                 }
             }
         };
@@ -214,16 +224,25 @@ function loadchat() {
                 var json = JSON.parse(xhr.responseText);
                 if (json['success']) {
                     for (var i = 0; i < json['messages'].length; i++) {
-                        var msg = json['messages'][i]['user'] + ':' + encryption(json['messages'][i]['text'], getCookie('key_encryption'));
-                        $('#chatWindow').html($('#chatWindow').html() + "<p " +
-                            "class='user1'" +
+                        var msg = json['messages'][i]['user'] + ':' + decryption(json['messages'][i]['text'], getCookie('key_encryption'));
+                        if(json['messages'][i]['user'] == document.getElementById('user').innerHTML){
+                            $('#chatWindow').html($('#chatWindow').html() + "<p " +
+                            "class='chatMessage user2'" +
                             " > <span>" +
                             msg +
                             "</span> </p>");
+                        }else{
+                            $('#chatWindow').html($('#chatWindow').html() + "<p " +
+                            "class='chatMessage user1'" +
+                            " > <span>" +
+                            msg +
+                            "</span> </p>");
+                        }
+                        
                     }
-                    
+                    openSweetDialog("Load successful")
                 } else {
-                    openSweetDialog("Error occured, try again")
+                    openSweetDialog("An error occured, try again")
                 }
             }
         };
@@ -255,9 +274,9 @@ function delchat() {
             if (xhr.readyState === 4 && xhr.status === 200) {
                 var json = JSON.parse(xhr.responseText);
                 if (json['success']) {
-                    openSweetDialog("Your chat was deleted")
+                    openSweetDialog("Save successfully deleted")
                 } else {
-                    openSweetDialog("Error occured, try again")
+                    openSweetDialog("An error occured, try again")
                 }
             }
         };

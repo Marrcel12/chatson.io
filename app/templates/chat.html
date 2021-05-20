@@ -43,20 +43,20 @@
     </div>
     <div id="saveChat">
         <button onclick="closeWindows('save')">Cancel</button>
-        <input type="text" placeholder="Chat key (if You have one)" id="saveKey">
-        <input type="text" placeholder="Your password" id="savePass">
+        <input type="text" placeholder="Chat key (if not assigned, leave empty)" id="saveKey">
+        <input type="password" placeholder="Your password" id="savePass">
         <button onclick="savechat()">Save</button>
     </div>
     <div id="loadChat">
         <button onclick="closeWindows('load')">Cancel</button>
         <input type="text" placeholder="Chat key" id="loadKey">
-        <input type="text" placeholder="Your password" id="loadPass">
+        <input type="password" placeholder="Your password" id="loadPass">
         <button onclick="loadchat()">Load</button>
     </div>
     <div id="delChat">
         <button onclick="closeWindows('del')">Cancel</button>
         <input type="text" placeholder="Chat key" id="delKey">
-        <input type="text" placeholder="Your password" id="delPass">
+        <input type="password" placeholder="Your password" id="delPass">
         <button onclick="delchat()">Delete</button>
     </div>
     <div id="chatSection">

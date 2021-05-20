@@ -14,6 +14,7 @@
 </head>
 
 <body>
+  <div id="name" style="display: none">{{name}}</div>
    <div id="sweetDialog">
        <div id="sweetDialogContent">
            <p id="sweetDialogText">
@@ -45,20 +46,20 @@
                     <button onclick="showdelchat()">Delete chat</button>
                 </div>
                 <div id="saveChat">
-                    <input type="text" placeholder="Chat key (if You have one)" id="saveKey">
-                    <input type="text" placeholder="Your password" id="savePass">
+                    <input type="text" placeholder="Chat key (if not assigned, leave empty)" id="saveKey">
+                    <input type="password" placeholder="Your password" id="savePass">
                     <button onclick="savechat()">Save</button>
                     <button onclick="closeWindows('save')">Cancel</button>
                 </div>
                 <div id="loadChat">
                     <input type="text" placeholder="Chat key" id="loadKey">
-                    <input type="text" placeholder="Your password" id="loadPass">
+                    <input type="password" placeholder="Your password" id="loadPass">
                     <button onclick="loadchat()">Load</button>
                     <button onclick="closeWindows('load')">Cancel</button>
                 </div>
                 <div id="delChat">
                     <input type="text" placeholder="Chat key" id="delKey">
-                    <input type="text" placeholder="Your password" id="delPass">
+                    <input type="password" placeholder="Your password" id="delPass">
                     <button onclick="delchat()">Delete</button>
                     <button onclick="closeWindows('del')">Cancel</button>
                 </div>
